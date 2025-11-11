@@ -7,6 +7,7 @@ export default function RootLayout() {
       <Stack.Screen name="auth" options={{ headerShown: false }} />
       <Stack.Screen name="loading" options={{ headerShown: false }} />
       <Stack.Screen name="jobseeker" options={{ headerShown: false }} />
+      <Stack.Screen name="Notifications" options={{ headerShown: false }} />
     </Stack>
   );
 }

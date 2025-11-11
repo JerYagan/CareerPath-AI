@@ -8,9 +8,11 @@
     "salary": "₱60,000 - ₱90,000",
     "type": "Full-time",
     "posted": "2 days ago",
-    "description": "We're looking for an experienced Full Stack Developer to join our growing team. You'll work on cutting-edge web applications using modern tech stacks.",
+    "description": "We're looking for an experienced Full Stack Developer to join our growing team.",
     "skills": ["React", "Node.js", "TypeScript"],
-    "saved": true
+    "saved": true,
+    "applied": true,
+    "status": "Under Review"
   },
   {
     "id": 2,
@@ -21,25 +23,14 @@
     "salary": "₱40,000 - ₱65,000",
     "type": "Full-time",
     "posted": "1 week ago",
-    "description": "We are seeking a creative UI/UX Designer to help design engaging interfaces for mobile and web platforms.",
+    "description": "We are seeking a creative UI/UX Designer to help design engaging interfaces.",
     "skills": ["Figma", "Adobe XD", "Wireframing"],
-    "saved": true
+    "saved": true,
+    "applied": true,
+    "status": "Shortlisted"
   },
   {
     "id": 3,
-    "title": "Backend Engineer",
-    "company": "CloudWorks Solutions",
-    "match": "95%",
-    "location": "Cebu City",
-    "salary": "₱70,000 - ₱100,000",
-    "type": "Remote",
-    "posted": "3 days ago",
-    "description": "Work with our API and infrastructure team to build secure, scalable backend systems.",
-    "skills": ["Node.js", "Express", "PostgreSQL"],
-    "saved": false
-  },
-  {
-    "id": 4,
     "title": "Mobile App Developer",
     "company": "Appfinity Labs",
     "match": "90%",
@@ -49,7 +40,40 @@
     "posted": "4 days ago",
     "description": "Join our mobile team building cross-platform apps using React Native and Expo.",
     "skills": ["React Native", "Expo", "Firebase"],
-    "saved": true
+    "saved": true,
+    "applied": true,
+    "status": "Interview Scheduled",
+    "interviewDetails": {
+      "date": "November 20, 2025",
+      "time": "10:30 AM",
+      "mode": "On-site",
+      "place": "Appfinity HQ, 2nd Floor, TechCity Tower, Quezon City",
+      "interviewerName": "Maria Dela Cruz",
+      "interviewerPosition": "HR Manager"
+    }
+  },
+  {
+    "id": 4,
+    "title": "Data Analyst",
+    "company": "InsightWorks Analytics",
+    "match": "87%",
+    "location": "Pasig City",
+    "salary": "₱45,000 - ₱70,000",
+    "type": "Full-time",
+    "posted": "5 days ago",
+    "description": "Analyze business data and generate insights to support management decisions.",
+    "skills": ["Python", "SQL", "Tableau"],
+    "saved": true,
+    "applied": true,
+    "status": "Interview Scheduled",
+    "interviewDetails": {
+      "date": "November 23, 2025",
+      "time": "2:00 PM",
+      "mode": "Virtual",
+      "place": "Zoom Meeting",
+      "interviewerName": "John Santos",
+      "interviewerPosition": "Data Science Lead"
+    }
   },
   {
     "id": 5,
@@ -62,7 +86,9 @@
     "posted": "1 day ago",
     "description": "Looking for a detail-oriented frontend developer with a strong eye for design.",
     "skills": ["Vue.js", "TailwindCSS", "TypeScript"],
-    "saved": false
+    "saved": false,
+    "applied": true,
+    "status": "Rejected"
   },
   {
     "id": 6,
@@ -75,6 +101,23 @@
     "posted": "5 days ago",
     "description": "Analyze business data and generate insights to support management decisions.",
     "skills": ["Python", "SQL", "Tableau"],
-    "saved": true
+    "saved": true,
+    "applied": true,
+    "status": "Hired"
+  },
+  {
+    "id": 7,
+    "title": "Marketing Analyst",
+    "company": "Skyline Media",
+    "match": "87%",
+    "location": "Quezon City",
+    "salary": "₱40,000 - ₱50,000",
+    "type": "Full-time",
+    "posted": "3 months ago",
+    "description": "Responsible for campaign analytics and performance tracking.",
+    "skills": ["SEO", "Google Analytics", "Reporting"],
+    "archived": true,
+    "archivedDuration": "2 weeks",
+    "statusTags": ["Position Filled", "No Longer Available"]
   }
 ]

@@ -1,7 +1,11 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import jobs from "@/assets/data/jobs.json"; // make sure this includes a `saved` prop
-import JobCard from "@/components/job/JobCard";
+import React, { useState, useCallback } from "react";
+import { View, ScrollView, RefreshControl } from "react-native";
+import jobs from "@/assets/data/jobs.json";
+import Tabs from "@/components/Tabs";
+import SavedSection from "@/components/activity/SavedSection";
+import AppliedSection from "@/components/activity/AppliedSection";
+import InterviewSection from "@/components/activity/InterviewSection";
+import ArchivedSection from "@/components/activity/ArchivedSection";
 
 const options = ["saved", "applied", "interviews", "archived"] as const;
 const labels = {
@@ -11,79 +15,51 @@ const labels = {
   archived: "Archived",
 };
 
-const mockContent = {
-  applied: ["Job A", "Job B"],
-  interviews: ["Interview X"],
-  archived: ["Archived 1", "Archived 2"],
+const statusColors: Record<string, string> = {
+  "Under Review": "bg-yellow-200 text-yellow-800",
+  Shortlisted: "bg-blue-100 text-blue-800",
+  "Interview Scheduled": "bg-purple-100 text-purple-800",
+  Rejected: "bg-red-100 text-red-800",
+  Hired: "bg-green-100 text-green-800",
+  "Position Filled": "bg-gray-200 text-gray-700",
+  "No Longer Available": "bg-orange-100 text-orange-700",
 };
 
 const Activity = () => {
   const [selected, setSelected] = useState<keyof typeof labels>("saved");
+  const [refreshing, setRefreshing] = useState(false);
 
-  const handleToggle = (option: keyof typeof labels) => {
-    setSelected(option); // only one can be active
-  };
-
-  // Get jobs for saved tab
   const savedJobs = jobs.filter((job) => job.saved);
+  const appliedJobs = jobs.filter((job) => job.applied);
+  const interviewJobs = jobs.filter((job) => job.status === "Interview Scheduled");
+  const archivedJobs = jobs.filter((job) => job.archived);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => setRefreshing(false), 1200);
+  }, []);
 
   return (
-    <View className="p-4 flex-1">
-      {/* Toggle Buttons */}
-      <View className="flex-row justify-center bg-gray-200 border border-gray-200 rounded-lg mb-4">
-        {options.map((option) => {
-          const isActive = selected === option;
-          return (
-            <TouchableOpacity
-              key={option}
-              onPress={() => handleToggle(option)}
-              className={`flex-1 py-4 px-4 rounded-lg ${
-                isActive ? "bg-white" : "bg-gray-200"
-              }`}
-            >
-              <Text
-                className={`text-center font-bold ${
-                  isActive ? "text-black" : "text-gray-500"
-                }`}
-              >
-                {labels[option]}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
+    <View className="mx-4 mt-4 flex-1">
+      <Tabs
+        options={options}
+        labels={labels}
+        selected={selected}
+        setSelected={setSelected} // ✅ now type-safe
+      />
 
-      {/* Content */}
-      <ScrollView>
-        {selected === "saved"
-          ? savedJobs.map((job) =>
-          <JobCard
-            key={job.id}
-            job={job}
-            buttons={[
-              {
-                title: "Apply Now",
-                className: "bg-indigo-950 w-full flex-1",
-                textClassName: "text-white",
-                onPress: () => console.log("Apply to", job.title),
-              },
-              {
-                title: "Remove",
-                icon: "trash-outline",
-                className: "border border-gray-300 gap-2",
-                onPress: () => console.log("Bookmark", job.title),
-              },
-            ]}
-          />
-        )
-          : mockContent[selected].map((item, i) => (
-              <View
-                key={i}
-                className="mb-4 p-4 border rounded-lg bg-gray-50"
-              >
-                <Text className="font-bold text-lg mb-2">{item}</Text>
-              </View>
-            ))}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+      >
+        {selected === "saved" && <SavedSection savedJobs={savedJobs} />}
+        {selected === "applied" && (
+          <AppliedSection appliedJobs={appliedJobs} statusColors={statusColors} />
+        )}
+        {selected === "interviews" && <InterviewSection interviewJobs={interviewJobs} />}
+        {selected === "archived" && (
+          <ArchivedSection archivedJobs={archivedJobs} statusColors={statusColors} />
+        )}
       </ScrollView>
     </View>
   );

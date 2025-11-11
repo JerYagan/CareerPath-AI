@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "Application Update",
+    "message": "Your application for 'Frontend Developer' has been shortlisted.",
+    "time": "2025-11-11T09:00:00Z",
+    "unread": true
+  },
+  {
+    "id": 2,
+    "title": "Interview Scheduled",
+    "message": "Your interview for 'UI/UX Designer' is scheduled on Nov 15, 2:00 PM.",
+    "time": "2025-11-10T14:30:00Z",
+    "unread": false
+  },
+  {
+    "id": 3,
+    "title": "Job Alert",
+    "message": "New job posting: 'React Native Developer' in your saved locations.",
+    "time": "2025-11-09T12:00:00Z",
+    "unread": true
+  }
+]

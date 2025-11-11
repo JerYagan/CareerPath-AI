@@ -1,0 +1,82 @@
+{
+  "name": "Jane Doe",
+  "position": "UI/UX Designer",
+  "location": "Quezon City, Philippines",
+  "email": "jane.doe@example.com",
+  "phone": "+63 912 345 6789",
+  "profilePicture": "https://via.placeholder.com/150",
+  "description": "Passionate designer crafting user-centered experiences.",
+  "completion": 85,
+  "overview": "Creative and detail-oriented designer with 4+ years of experience in visual design, prototyping, and UI systems.",
+  "experience": [
+    {
+      "title": "UI/UX Designer",
+      "company": "AdoptNet Technologies",
+      "years": "2021 - Present",
+      "description": "Led end-to-end design for mobile applications with over 10k users."
+    },
+    {
+      "title": "Graphic Designer",
+      "company": "Creative Co.",
+      "years": "2019 - 2021",
+      "description": "Developed marketing materials and digital assets for branding."
+    }
+  ],
+  "education": [
+    {
+      "degree": "BS in Information Technology",
+      "school": "University of the Philippines",
+      "years": "2015 - 2019"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Google UX Design Certificate",
+      "organization": "Google",
+      "year": "2022"
+    },
+    {
+      "name": "Adobe Certified Expert",
+      "organization": "Adobe",
+      "year": "2021"
+    }
+  ],
+  "languages": ["English", "Filipino", "Japanese"],
+  "resume": {
+    "fileName": "Jane_Doe_Resume.pdf",
+    "url": "https://example.com/Jane_Doe_Resume.pdf"
+  },
+  "skills": [
+    { "name": "JavaScript", "level": 90 },
+    { "name": "React Native", "level": 85 },
+    { "name": "UI/UX Design", "level": 70 },
+    { "name": "Node.js", "level": 60 },
+    { "name": "Communication", "level": 95 }
+  ],
+  "roadmap": [
+    {
+      "title": "Learn Advanced System Design",
+      "status": "In Progress",
+      "progress": 65,
+      "deadline": "Dec 30, 2025"
+    },
+    {
+      "title": "AWS Solutions Architect Certification",
+      "status": "In Progress",
+      "progress": 40,
+      "deadline": "Mar 15, 2026"
+    },
+    {
+      "title": "Contribute to Open Source Project",
+      "status": "Not Started",
+      "progress": 0,
+      "deadline": "Jan 10, 2026"
+    },
+    {
+      "title": "Complete UI/UX Masterclass",
+      "status": "Completed",
+      "progress": 100,
+      "deadline": "Oct 05, 2025"
+    }
+  ]
+}

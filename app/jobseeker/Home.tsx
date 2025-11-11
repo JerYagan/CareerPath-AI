@@ -24,7 +24,7 @@ export default function Home() {
 
       <View className="mt-4 p-4">
         <Text className="text-2xl font-bold">Find your perfect job!</Text>
-        <Text className="text-gray-600">
+        <Text className="text-gray-600 mb-4">
           Showing {jobs.length} jobs matching your criteria
         </Text>
 

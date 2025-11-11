@@ -1,0 +1,43 @@
+[
+  {
+    "id": 1,
+    "company": "Techify Solutions",
+    "representative": "Sarah Mendoza",
+    "lastMessage": "Thank you for submitting your portfolio. We'll get back to you soon!",
+    "time": "10:45 AM",
+    "unread": true,
+    "logo": "https://via.placeholder.com/100",
+    "messages": [
+      { "id": 1, "text": "Hi! Have you had a chance to review my portfolio?", "sender": "me", "time": "10:40 AM" },
+      { "id": 2, "text": "Hello! Yes, we did. Your work looks impressive.", "sender": "them", "time": "10:42 AM" },
+      { "id": 3, "text": "Thank you for submitting your portfolio. We'll get back to you soon!", "sender": "them", "time": "10:45 AM" }
+    ]
+  },
+  {
+    "id": 2,
+    "company": "Creative Labs",
+    "representative": "Jonathan Cruz",
+    "lastMessage": "Can we schedule the interview for tomorrow at 2 PM?",
+    "time": "Yesterday",
+    "unread": false,
+    "logo": "https://via.placeholder.com/100",
+    "messages": [
+      { "id": 1, "text": "Hi Jonathan, I’m available this week for an interview.", "sender": "me", "time": "9:30 AM" },
+      { "id": 2, "text": "Great! Can we schedule the interview for tomorrow at 2 PM?", "sender": "them", "time": "9:45 AM" },
+      { "id": 3, "text": "That works perfectly, thank you.", "sender": "me", "time": "9:50 AM" }
+    ]
+  },
+  {
+    "id": 3,
+    "company": "NextWave Digital",
+    "representative": "Alyssa Reyes",
+    "lastMessage": "Thanks for the update, looking forward to hearing from your end.",
+    "time": "Nov 5",
+    "unread": false,
+    "logo": "https://via.placeholder.com/100",
+    "messages": [
+      { "id": 1, "text": "Hi Alyssa, I’ve updated the project files as discussed.", "sender": "me", "time": "2:15 PM" },
+      { "id": 2, "text": "Thanks for the update, looking forward to hearing from your end.", "sender": "them", "time": "2:20 PM" }
+    ]
+  }
+]

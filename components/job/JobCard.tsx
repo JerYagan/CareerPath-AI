@@ -26,17 +26,19 @@ type ButtonProps = {
 
 type Props = {
   job: Job;
-  buttons?: ButtonProps[]; // array of buttons
+  buttons?: ButtonProps[];
+  showMatch?: boolean; // whether to show match/status box
+  statusText?: string; // custom text for status (e.g., "Under Review")
 };
 
-const JobCard: React.FC<Props> = ({ job, buttons }) => {
+const JobCard: React.FC<Props> = ({ job, buttons, showMatch = true, statusText }) => {
   return (
-    <View className="mt-4 p-6 border border-gray-300 bg-white rounded-lg">
+    <View className="mb-4 p-6 border border-gray-300 bg-white rounded-lg">
       <View className="flex-row justify-between items-center">
         <View className="flex-row items-center gap-2">
           <Image
             source={{ uri: "https://via.placeholder.com/50" }}
-            className="w-12 h-12 bg-gray-200"
+            className="w-12 h-12 bg-gray-200 rounded-md"
           />
           <View>
             <Text className="text-xl font-bold mb-1">{job.title}</Text>
@@ -44,12 +46,21 @@ const JobCard: React.FC<Props> = ({ job, buttons }) => {
           </View>
         </View>
 
-        <View>
-          <Text className="mb-1">Match</Text>
-          <Text className="bg-indigo-700 text-white py-1 px-2 rounded-md text-center">
-            {job.match}
-          </Text>
-        </View>
+        {/* Match / Status Section */}
+        {showMatch && (
+          <View className="items-end">
+            <Text className="mb-1">Match</Text>
+            <Text
+              className={`text-sm font-semibold py-1 px-2 rounded-md text-center ${
+                statusText
+                  ? "bg-yellow-600 text-white"
+                  : "bg-indigo-700 text-white"
+              }`}
+            >
+              {statusText || `${job.match}`}
+            </Text>
+          </View>
+        )}
       </View>
 
       <View className="mt-8">
@@ -77,7 +88,7 @@ const JobCard: React.FC<Props> = ({ job, buttons }) => {
         {job.skills.map((skill, i) => (
           <Text
             key={i}
-            className="py-1 px-2 bg-gray-200 text-gray-600 font-bold rounded-lg"
+            className="py-1 px-2 bg-gray-200 text-gray-600 font-bold rounded-lg text-sm"
           >
             {skill}
           </Text>
@@ -85,7 +96,7 @@ const JobCard: React.FC<Props> = ({ job, buttons }) => {
       </View>
 
       {/* Buttons */}
-      {buttons && (
+      {buttons && buttons.length > 0 && (
         <View className="mt-4 flex-row gap-2">
           {buttons.map((btn, i) => (
             <CustomButton
