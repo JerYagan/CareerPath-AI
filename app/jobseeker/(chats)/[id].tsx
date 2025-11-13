@@ -86,47 +86,52 @@ const ChatRoom = () => {
 
   if (!chat) return <Text>Chat not found.</Text>;
 
-  return (
-    <SafeAreaView edges={["top"]} className="flex-1 bg-white">
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={18}
-      >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View className="flex-1">
-            {/* Header */}
-            <View className="flex-row items-center justify-between p-4 border-b border-gray-200">
-              <View className="flex-row items-center">
-                <TouchableOpacity
-                  onPress={() => router.push("/jobseeker/Chat")}
-                  className="mr-3"
-                >
-                  <Ionicons name="arrow-back" size={22} color="black" />
-                </TouchableOpacity>
-                {chat.logo && (
-                  <Image
-                    source={{ uri: chat.logo }}
-                    className="w-10 h-10 rounded-full mr-3 bg-gray-200"
-                  />
-                )}
-                <View>
-                  <Text className="text-lg font-semibold">{chat.company}</Text>
-                  <Text className="text-sm text-gray-500">{chat.representative}</Text>
-                </View>
-              </View>
+return (
+  <KeyboardAvoidingView
+    style={{ flex: 1 }}
+    behavior={Platform.OS === "ios" ? "padding" : "height"}
+    keyboardVerticalOffset={Platform.OS === "ios" ? 30 : 0}
+  >
+    {/* This replaces SafeAreaView WITHOUT breaking keyboard behavior */}
+    <View className="flex-1 bg-white" style={{ paddingTop: Platform.OS === "android" ? 35 : 0 }}>
+
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View className="flex-1">
+
+          {/* HEADER */}
+          <View className="flex-row items-center justify-between p-4 border-b border-gray-200">
+            <View className="flex-row items-center">
               <TouchableOpacity
-                onPress={() => console.log("Go to chat settings")}
-                className="p-2"
+                onPress={() => router.push("/jobseeker/Chat")}
+                className="mr-3"
               >
-                <Entypo name="dots-three-vertical" size={20} color="black" />
+                <Ionicons name="arrow-back" size={22} color="black" />
               </TouchableOpacity>
+
+              {chat.logo && (
+                <Image
+                  source={{ uri: chat.logo }}
+                  className="w-10 h-10 rounded-full mr-3 bg-gray-200"
+                />
+              )}
+
+              <View>
+                <Text className="text-lg font-semibold">{chat.company}</Text>
+                <Text className="text-sm text-gray-500">{chat.representative}</Text>
+              </View>
             </View>
 
-            {/* Messages */}
+            <TouchableOpacity onPress={() => console.log("settings")} className="p-2">
+              <Entypo name="dots-three-vertical" size={20} color="black" />
+            </TouchableOpacity>
+          </View>
+
+          {/* MESSAGES */}
+          <View className="flex-1">
             <FlatList
               ref={flatListRef}
-              data={messages}
+              data={[...messages].reverse()}
+              inverted
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => (
                 <View
@@ -136,47 +141,51 @@ const ChatRoom = () => {
                       : "bg-gray-200 self-start"
                   }`}
                 >
-                  <Text
-                    className={`${
-                      item.sender === "me" ? "text-white" : "text-gray-800"
-                    }`}
-                  >
+                  <Text className={item.sender === "me" ? "text-white" : "text-gray-800"}>
                     {item.text}
                   </Text>
-                  {item.time && (
-                    <Text
-                      className={`${
-                        item.sender === "me" ? "text-indigo-100 self-end" : "text-gray-500"
-                      } text-xs mt-1`}
-                    >
-                      {item.time}
-                    </Text>
-                  )}
+
+                  <Text
+                    className={`text-xs mt-1 ${
+                      item.sender === "me"
+                        ? "text-indigo-100 self-end"
+                        : "text-gray-500"
+                    }`}
+                  >
+                    {item.time}
+                  </Text>
                 </View>
               )}
               contentContainerStyle={{ paddingVertical: 10, paddingHorizontal: 6 }}
             />
-
-            {/* Input Bar */}
-            <View className="flex-row items-center border-t border-gray-200 p-3 bg-white">
-              <TouchableOpacity className="mr-2">
-                <Ionicons name="attach-outline" size={24} color="gray" />
-              </TouchableOpacity>
-              <TextInput
-                className="flex-1 bg-gray-100 rounded-lg px-4 py-3 mr-2"
-                placeholder="Type a message..."
-                value={input}
-                onChangeText={setInput}
-              />
-              <TouchableOpacity onPress={sendMessage} className="p-3">
-                <Ionicons name="send" size={22} color="indigo" />
-              </TouchableOpacity>
-            </View>
           </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
-  );
+
+          {/* INPUT BAR */}
+          <View className="flex-row items-center border-t border-gray-200 p-3 bg-white">
+            <TouchableOpacity className="mr-2">
+              <Ionicons name="attach-outline" size={24} color="gray" />
+            </TouchableOpacity>
+
+            <TextInput
+              className="flex-1 bg-gray-100 rounded-lg px-4 py-3 mr-2"
+              placeholder="Type a message..."
+              value={input}
+              onChangeText={setInput}
+            />
+
+            <TouchableOpacity onPress={sendMessage} className="p-3">
+              <Ionicons name="send" size={22} color="indigo" />
+            </TouchableOpacity>
+          </View>
+
+        </View>
+      </TouchableWithoutFeedback>
+
+    </View>
+  </KeyboardAvoidingView>
+);
+
+
 };
 
 export default ChatRoom;

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "name": "TechCorp Philippines",
+    "rating": 4.5,
+    "reviews": 234,
+    "industry": "Technology",
+    "location": "Makati, Metro Manila",
+    "employees": "500-1000 employees",
+    "openPositions": 15,
+    "description": "Leading technology company specializing in software development and IT solutions.",
+    "tags": ["Health Insurance", "Work from Home", "Career Growth"]
+  },
+  {
+    "id": "2",
+    "name": "Digital Solutions Inc.",
+    "rating": 4.2,
+    "reviews": 156,
+    "industry": "IT Services",
+    "location": "BGC, Taguig",
+    "employees": "200-500 employees",
+    "openPositions": 8,
+    "description": "Innovative digital solutions provider with a focus on web and mobile applications.",
+    "tags": ["Flexible Hours", "Training Programs", "Bonuses"]
+  },
+  {
+    "id": "3",
+    "name": "Creative Studio",
+    "rating": 4.7,
+    "reviews": 89,
+    "industry": "Design",
+    "location": "Quezon City",
+    "employees": "50-200 employees",
+    "openPositions": 5,
+    "description": "Creative agency specializing in branding, animations, and digital content.",
+    "tags": ["Creative Team", "Growth Culture", "Remote Options"]
+  }
+]

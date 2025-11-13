@@ -3,6 +3,7 @@ import { View, Text, TextInput, ScrollView, TouchableOpacity, Image } from "reac
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import chats from "@/assets/data/chats.json";
+import AppSearchBar from "@/components/AppSearchBar";
 
 
 const Chat = () => {
@@ -18,15 +19,11 @@ const Chat = () => {
   return (
     <View className="flex-1 bg-white p-4">
       {/* Search Bar */}
-      <View className="flex-row items-center bg-gray-100 px-4 rounded-xl mb-8">
-        <Ionicons name="search-outline" size={20} color="gray" />
-        <TextInput
-          className="flex-1 ml-2 text-gray-700"
-          placeholder="Search company or representative..."
+        <AppSearchBar
           value={searchQuery}
-          onChangeText={setSearchQuery}
+          onChange={setSearchQuery}
+          placeholder="Search chats..."
         />
-      </View>
 
       {/* Chat List */}
       <ScrollView showsVerticalScrollIndicator={false}>

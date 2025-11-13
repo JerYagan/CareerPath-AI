@@ -85,9 +85,9 @@ const _layout = () => {
         />
 
         <Tabs.Screen name="(chats)/[id]" options={{ href: null, headerShown: false }} />
-        <Tabs.Screen name="Career" options={{ href: null, headerShown: false }} />
-        <Tabs.Screen name="Companies" options={{ href: null, headerShown: false }} />
-        <Tabs.Screen name="Navigation" options={{ href: null, headerShown: false }} />
+        <Tabs.Screen name="Career" options={{ href: null }} />
+        <Tabs.Screen name="Companies" options={{ href: null }} />
+        <Tabs.Screen name="Navigation" options={{ href: null }} />
       </Tabs>
     </View>
   );

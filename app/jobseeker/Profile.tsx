@@ -3,7 +3,7 @@ import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import * as Progress from "react-native-progress";
 import { Ionicons } from "@expo/vector-icons";
 import profileData from "@/assets/data/profile.json";
-import CustomButton from "@/components/CustomButton";
+import Tabs from "@/components/Tabs"; // <-- your animated tabs component
 
 const options = ["overview", "experience", "skills", "roadmap"] as const;
 const labels = {
@@ -14,7 +14,8 @@ const labels = {
 };
 
 const Profile = () => {
-  const [selected, setSelected] = useState<keyof typeof labels>("overview");
+  const [selected, setSelected] =
+    useState<keyof typeof labels>("overview");
   const user = profileData;
 
   return (
@@ -74,31 +75,18 @@ const Profile = () => {
           </Text>
         </View>
 
-        {/* Tabs */}
-        <View className="flex-row justify-center bg-gray-200 border border-gray-200 rounded-lg mb-4">
-          {options.map((option) => {
-            const isActive = selected === option;
-            return (
-              <TouchableOpacity
-                key={option}
-                onPress={() => setSelected(option)}
-                className={`flex-1 py-3 px-3 rounded-lg ${
-                  isActive ? "bg-white" : "bg-gray-200"
-                }`}
-              >
-                <Text
-                  className={`text-center font-bold ${
-                    isActive ? "text-black" : "text-gray-500"
-                  }`}
-                >
-                  {labels[option]}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
-        </View>
+        {/* 🔥 Animated Tabs */}
+        <Tabs
+          options={options}
+          labels={labels}
+          selected={selected}
+          setSelected={setSelected}
+          activeColor="#000"
+          inactiveColor="#6b7280"
+        />
 
-        {/* Overview Tab */}
+        {/* --- TABS CONTENT BELOW --- */}
+
         {selected === "overview" && (
           <View className="flex- flex-col gap-4">
             {/* About Me */}
@@ -107,7 +95,7 @@ const Profile = () => {
                 <Text className="text-lg font-semibold text-gray-800">
                   About Me
                 </Text>
-                <TouchableOpacity onPress={() => console.log("Edit About Me")}>
+                <TouchableOpacity>
                   <Ionicons name="create-outline" size={20} color="#555" />
                 </TouchableOpacity>
               </View>
@@ -161,7 +149,7 @@ const Profile = () => {
               ))}
             </View>
 
-            {/* Licenses & Certifications */}
+            {/* Certifications */}
             <View className="p-6 bg-white border border-gray-300 rounded-lg">
               <View className="flex-row justify-between items-center mb-2">
                 <View className="flex-row items-center gap-2">
@@ -234,7 +222,7 @@ const Profile = () => {
           </View>
         )}
 
-        {/* Other Tabs */}
+        {/* EXPERIENCE TAB */}
         {selected === "experience" && (
           <View className="p-6 bg-white border border-gray-300 rounded-lg">
             <View className="flex-row justify-between items-center mb-4">
@@ -259,6 +247,7 @@ const Profile = () => {
           </View>
         )}
 
+        {/* SKILLS TAB */}
         {selected === "skills" && (
           <View className="p-6 bg-white border border-gray-300 rounded-lg space-y-4 mb-4">
             <View className="flex-row justify-between items-center mb-4">
@@ -306,9 +295,9 @@ const Profile = () => {
           </View>
         )}
 
+        {/* ROADMAP TAB */}
         {selected === "roadmap" && (
           <View className="p-4 bg-white border border-gray-300 rounded-lg space-y-4 mb-4">
-            {/* Header */}
             <View className="flex-row justify-between items-center mb-2">
               <Text className="text-lg font-semibold text-gray-800">
                 Career Roadmap
@@ -332,6 +321,7 @@ const Profile = () => {
                     <Text className="text-lg font-semibold text-gray-900">
                       {goal.title}
                     </Text>
+
                     <View
                       className={`px-3 py-1 rounded-full ${
                         goal.status === "Completed"

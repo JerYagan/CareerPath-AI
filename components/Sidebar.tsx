@@ -123,7 +123,7 @@ const Sidebar = ({ visible, onClose }: SidebarProps) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                router.push("/Setting");
+                router.push("/Settings");
                 onClose();
               }}
             >
@@ -178,29 +178,6 @@ const Sidebar = ({ visible, onClose }: SidebarProps) => {
                   </Text>
                 </View>
               )}
-            </View>
-
-            {/* Profile completion */}
-            <View className="mt-4 mb-3 bg-blue-50 p-6">
-              <View className="flex-row justify-between mb-2">
-                <Text className="text-sm text-gray-500">
-                  Profile Completion
-                </Text>
-                <Text className="text-sm font-bold text-gray-400">
-                  {profileData.completion}% completed
-                </Text>
-              </View>
-
-              <View className="w-full h-2 bg-gray-200 rounded-full">
-                <View
-                  style={{
-                    width: `${profileData.completion}%`,
-                    height: 8,
-                    backgroundColor: "#2563eb",
-                    borderRadius: 4,
-                  }}
-                />
-              </View>
             </View>
           </View>
 

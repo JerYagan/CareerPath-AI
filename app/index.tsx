@@ -1,6 +1,13 @@
-import { Redirect } from 'expo-router';
-import "../global.css"
+import { Redirect } from "expo-router";
+import { useTheme } from "@/context/ThemeContext";
+import "../global.css";
+import { View } from "react-native";
 
 export default function Index() {
-  return <Redirect href="/auth/Login" />
+  const { theme } = useTheme();
+  return (
+    <View className={theme === "dark" ? "dark flex-1" : "flex-1"}>
+      <Redirect href="/auth/Login" />
+    </View>
+  );
 }
