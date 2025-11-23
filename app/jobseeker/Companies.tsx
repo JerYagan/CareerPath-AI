@@ -12,10 +12,10 @@ import {
   Keyboard,
 } from "react-native";
 
-import StatsRow from "@/components/company/StatsRow";
-import CompanyCard from "@/components/company/CompanyCard";
+import StatsRow from "@/components/features/jobseeker/company/StatsRow";
+import CompanyCard from "@/components/features/jobseeker/company/CompanyCard";
 import companiesJSON from "@/assets/data/companies.json";
-import AppSearchBar from "@/components/AppSearchBar";
+import AppSearchBar from "@/components/ui/AppSearchBar";
 
 const PAGE_SIZE = 3;
 const industries = ["All", "Technology", "IT Services", "Design"];

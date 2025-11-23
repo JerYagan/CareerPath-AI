@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { Tabs, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/ui/Sidebar";
 
-const _layout = () => {
+const JobseekerLayout = () => {
   const router = useRouter();
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [unreadCount, setUnreadCount] = useState(3);
@@ -84,7 +84,10 @@ const _layout = () => {
           }}
         />
 
-        <Tabs.Screen name="(chats)/[id]" options={{ href: null, headerShown: false }} />
+        <Tabs.Screen name="(chats)" options={{ href: null, headerShown: false }} />
+        <Tabs.Screen name="Chats" options={{ href: null, headerShown: false }} />
+        <Tabs.Screen name="Chats/index" options={{ href: null, headerShown: false }} />
+        <Tabs.Screen name="Chats/[id]" options={{ href: null, headerShown: false }} />
         <Tabs.Screen name="Career" options={{ href: null }} />
         <Tabs.Screen name="Companies" options={{ href: null }} />
         <Tabs.Screen name="Navigation" options={{ href: null }} />
@@ -93,4 +96,4 @@ const _layout = () => {
   );
 };
 
-export default _layout;
+export default JobseekerLayout;

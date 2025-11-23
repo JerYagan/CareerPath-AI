@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from "react";
 import { View, ScrollView, RefreshControl } from "react-native";
 import jobs from "@/assets/data/jobs.json";
-import Tabs from "@/components/Tabs";
-import SavedSection from "@/components/activity/SavedSection";
-import AppliedSection from "@/components/activity/AppliedSection";
-import InterviewSection from "@/components/activity/InterviewSection";
-import ArchivedSection from "@/components/activity/ArchivedSection";
+import Tabs from "@/components/ui/SegmentTabs";
+import SavedSection from "@/components/features/jobseeker/activity/SavedSection";
+import AppliedSection from "@/components/features/jobseeker/activity/AppliedSection";
+import InterviewSection from "@/components/features/jobseeker/activity/InterviewSection";
+import ArchivedSection from "@/components/features/jobseeker/activity/ArchivedSection";
 
 const options = ["saved", "applied", "interviews", "archived"] as const;
 const labels = {

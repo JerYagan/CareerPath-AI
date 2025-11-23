@@ -1,12 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
 import { View, Text, ScrollView, Animated } from "react-native";
 
-import Step1Personal from "@/components/register/Step1Personal";
-import Step2Experience from "@/components/register/Step2Experience";
-import Step3Education from "@/components/register/Step3Education";
-import Step4Skills from "@/components/register/Step4Skills";
-import Step5Resume from "@/components/register/Step5Resume";
-import Step6Goals from "@/components/register/Step6Goals";
+import Step1Personal from "@/components/features/jobseeker/register/Step1Personal";
+import Step2Experience from "@/components/features/jobseeker/register/Step2Experience";
+import Step3Education from "@/components/features/jobseeker/register/Step3Education";
+import Step4Skills from "@/components/features/jobseeker/register/Step4Skills";
+import Step5Resume from "@/components/features/jobseeker/register/Step5Resume";
+import Step6Goals from "@/components/features/jobseeker/register/Step6Goals";
 import { RegisterProvider } from "@/context/RegisterContext";
 
 const TOTAL = 6;

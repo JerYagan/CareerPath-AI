@@ -1,0 +1,44 @@
+[
+  {
+    "id": 101,
+    "company": "BrightHire Agency",
+    "representative": "Mark Dela Peña",
+    "lastMessage": "We reviewed your job post revision. Everything looks good!",
+    "time": "3:12 PM",
+    "unread": true,
+    "logo": "https://via.placeholder.com/100",
+    "lastSeen": "Online",
+    "messages": [
+      { "id": 1, "text": "Good morning Mark, any feedback on the applicants?", "sender": "me", "time": "3:05 PM", "read": true },
+      { "id": 2, "text": "Yes! We reviewed your job post revision. Everything looks good!", "sender": "them", "time": "3:12 PM", "read": true }
+    ]
+  },
+  {
+    "id": 102,
+    "company": "TalentForge HR",
+    "representative": "Patricia Santos",
+    "lastMessage": "Please send the updated job description.",
+    "time": "Yesterday",
+    "unread": false,
+    "logo": "https://via.placeholder.com/100",
+    "lastSeen": "Last seen 5 hours ago",
+    "messages": [
+      { "id": 1, "text": "Hi Patricia, noted. Will send updates today.", "sender": "me", "time": "5:20 PM", "read": true },
+      { "id": 2, "text": "Please send the updated job description.", "sender": "them", "time": "5:22 PM", "read": true }
+    ]
+  },
+  {
+    "id": 103,
+    "company": "PeakSource Outsourcing",
+    "representative": "Leo Quijano",
+    "lastMessage": "Thank you. We'll proceed with the screening.",
+    "time": "Nov 3",
+    "unread": false,
+    "logo": "https://via.placeholder.com/100",
+    "lastSeen": "Last seen Nov 10",
+    "messages": [
+      { "id": 1, "text": "Sent over the candidate summary.", "sender": "me", "time": "11:15 AM", "read": true },
+      { "id": 2, "text": "Thank you. We'll proceed with the screening.", "sender": "them", "time": "11:20 AM", "read": true }
+    ]
+  }
+]

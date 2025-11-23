@@ -1,0 +1,25 @@
+{
+  "threads": [
+    {
+      "id": "CHAT-001",
+      "candidateId": "CAND-001",
+      "name": "Juan Dela Cruz",
+      "lastMessage": "Thank you for the update!",
+      "time": "10:45 AM"
+    },
+    {
+      "id": "CHAT-002",
+      "candidateId": "CAND-002",
+      "name": "Maria Santos",
+      "lastMessage": "Sure, I can send my portfolio.",
+      "time": "Yesterday"
+    },
+    {
+      "id": "CHAT-003",
+      "candidateId": "CAND-003",
+      "name": "Pedro Reyes",
+      "lastMessage": "When is the interview?",
+      "time": "Monday"
+    }
+  ]
+}

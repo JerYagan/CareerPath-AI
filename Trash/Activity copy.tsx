@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from "react";
 import { View, Text, Image, TouchableOpacity, ScrollView, RefreshControl } from "react-native";
 import jobs from "@/assets/data/jobs.json";
-import JobCard from "@/components/job/JobCard";
+import JobCard from "@/components/features/jobseeker/job/JobCard";
 import { Ionicons } from "@expo/vector-icons";
-import CustomButton from "@/components/CustomButton";
+import CustomButton from "@/components/ui/CustomButton";
 
 const options = ["saved", "applied", "interviews", "archived"] as const;
 const labels = {

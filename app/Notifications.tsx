@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import notifications from "@/assets/data/notifications.json";
 import { SafeAreaView } from "react-native-safe-area-context";
-import NotificationModal from "@/components/modals/NotificationModal";
+import NotificationModal from "@/components/ui/NotificationModal";
 
 const Notifications = () => {
   const router = useRouter();

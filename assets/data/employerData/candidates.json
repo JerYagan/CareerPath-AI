@@ -1,0 +1,48 @@
+{
+  "candidates": [
+    {
+      "id": "CAND-001",
+      "name": "Juan Dela Cruz",
+      "role": "Frontend Developer",
+      "skills": ["React", "JavaScript", "CSS"],
+      "experience": "2 years",
+      "location": "Quezon City, Philippines",
+      "email": "juan@email.com",
+      "status": "Available",
+      "pfp": "https://i.pravatar.cc/300?img=8"
+    },
+    {
+      "id": "CAND-002",
+      "name": "Maria Santos",
+      "role": "UI/UX Designer",
+      "skills": ["Figma", "UX Research", "Prototyping"],
+      "experience": "3 years",
+      "location": "Makati, Philippines",
+      "email": "maria@email.com",
+      "status": "Open to Work",
+      "pfp": "https://i.pravatar.cc/300?img=7"
+    },
+    {
+      "id": "CAND-003",
+      "name": "Pedro Reyes",
+      "role": "Backend Developer",
+      "skills": ["Node.js", "Express", "MongoDB"],
+      "experience": "4 years",
+      "location": "Pasig, Philippines",
+      "email": "pedro@email.com",
+      "status": "Not Available",
+      "pfp": "https://i.pravatar.cc/300?img=9"
+    },
+    {
+      "id": "CAND-004",
+      "name": "Ana Cruz",
+      "role": "Marketing Specialist",
+      "skills": ["SEO", "Content Writing", "Branding"],
+      "experience": "2 years",
+      "location": "Remote · Philippines",
+      "email": "ana@email.com",
+      "status": "Available",
+      "pfp": "https://i.pravatar.cc/300?img=5"
+    }
+  ]
+}

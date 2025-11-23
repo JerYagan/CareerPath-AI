@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from "react";
 import { ScrollView, View, Text, RefreshControl } from "react-native";
-import Search from "@/components/Search";
-import JobPopular from "@/components/job/JobPopular";
+import Search from "@/components/features/jobseeker/home/HomeSearch";
+import JobPopular from "@/components/features/jobseeker/job/JobPopular";
 import jobs from "@/assets/data/jobs.json";
-import JobCard from "@/components/job/JobCard";
+import JobCard from "@/components/features/jobseeker/job/JobCard";
 
 export default function Home() {
   const [refreshing, setRefreshing] = useState(false);

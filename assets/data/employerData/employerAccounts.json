@@ -1,0 +1,12 @@
+{
+  "employers": [
+    {
+      "email": "hr@techcorp.com",
+      "password": "123456"
+    },
+    {
+      "email": "recruitment@company.com",
+      "password": "password123"
+    }
+  ]
+}

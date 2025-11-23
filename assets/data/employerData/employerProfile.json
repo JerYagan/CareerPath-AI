@@ -1,0 +1,30 @@
+{
+  "companyName": "TechCorp Philippines",
+  "industry": "Technology & Software Development",
+  "location": "Quezon City, Philippines",
+  "email": "hr@techcorp.com",
+  "phone": "+63 912 345 6789",
+  "website": "https://www.techcorp.com",
+  "description": "TechCorp is a leading IT solutions provider committed to delivering innovative software, enterprise solutions, and cutting-edge technology products. We empower businesses through digital transformation and world-class engineering practices.",
+  "logo": "https://via.placeholder.com/100",
+  "jobOffers": [
+    {
+      "id": "JOB-2025-001",
+      "title": "Senior Software Engineer",
+      "status": "Active",
+      "applicants": 32
+    },
+    {
+      "id": "JOB-2025-002",
+      "title": "UI/UX Designer",
+      "status": "Draft",
+      "applicants": 18
+    },
+    {
+      "id": "JOB-2025-003",
+      "title": "HR Generalist",
+      "status": "Active",
+      "applicants": 54
+    }
+  ]
+}

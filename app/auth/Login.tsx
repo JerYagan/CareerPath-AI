@@ -8,21 +8,26 @@ import Animated, {
   interpolate,
 } from "react-native-reanimated";
 import users from "../../assets/data/users.json";
-import CustomButton from "@/components/CustomButton";
+import employerAccounts from "../../assets/data/employerData/employerAccounts.json";
+import CustomButton from "@/components/ui/CustomButton";
 
 const Login = () => {
   const router = useRouter();
 
   const [email, setEmail] = useState("john@example.com");
   const [password, setPassword] = useState("123456");
-  const [contactEmail, setContactEmail] = useState("");
-  const [selected, setSelected] = useState<"jobSeeker" | "employer">("jobSeeker");
+  const [contactEmail, setContactEmail] = useState("hr@techcorp.com");
+  const [selected, setSelected] = useState<"jobSeeker" | "employer">(
+    "jobSeeker"
+  );
 
   const position = useSharedValue(0);
 
   const handleToggle = (role: "jobSeeker" | "employer") => {
     setSelected(role);
-    position.value = withTiming(role === "jobSeeker" ? 0 : 1, { duration: 250 });
+    position.value = withTiming(role === "jobSeeker" ? 0 : 1, {
+      duration: 250,
+    });
   };
 
   const animatedHighlight = useAnimatedStyle(() => ({
@@ -40,12 +45,30 @@ const Login = () => {
   }));
 
   const handleLogin = () => {
-  const user = users.find(
-      (u) => u.email === email.trim() && u.password === password
-    );
+    if (selected === "jobSeeker") {
+      // JOB SEEKER LOGIN
+      const user = users.find(
+        (u) => u.email === email.trim() && u.password === password
+      );
 
-    if (user) {
-      router.replace("../loading");
+      if (user) {
+        router.replace("../loading");
+        return;
+      }
+
+      alert("Invalid job seeker email or password.");
+    } else {
+      // EMPLOYER LOGIN
+      const employer = employerAccounts.employers.find(
+        (e) => e.email === contactEmail.trim() && e.password === password.trim()
+      );
+
+      if (employer) {
+        router.replace("/employer/Dashboard");
+        return;
+      }
+
+      alert("Invalid employer email or password.");
     }
   };
 
@@ -181,7 +204,12 @@ const Login = () => {
         <View className="mt-8">
           <Text className="text-gray-500 text-center">
             Don't have an account?{" "}
-            <Text onPress={() => router.push("/auth/Register")} className="font-bold text-blue-400">Sign up</Text>
+            <Text
+              onPress={() => router.push("/auth/Register")}
+              className="font-bold text-blue-400"
+            >
+              Sign up
+            </Text>
           </Text>
         </View>
       </View>

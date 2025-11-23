@@ -1,0 +1,49 @@
+{
+  "applications": [
+    {
+      "id": "APP-001",
+      "name": "Juan Dela Cruz",
+      "role": "Frontend Developer",
+      "submittedAgo": "3 days ago",
+      "status": "Under Review",
+      "experience": "2 years",
+      "email": "juan@email.com"
+    },
+    {
+      "id": "APP-002",
+      "name": "Maria Santos",
+      "role": "UI/UX Designer",
+      "submittedAgo": "1 week ago",
+      "status": "Shortlisted",
+      "experience": "3 years",
+      "email": "maria@email.com"
+    },
+    {
+      "id": "APP-003",
+      "name": "Pedro Reyes",
+      "role": "Marketing Specialist",
+      "submittedAgo": "2 days ago",
+      "status": "Interview",
+      "experience": "1 year",
+      "email": "pedro@email.com"
+    },
+    {
+      "id": "APP-004",
+      "name": "Ana Cruz",
+      "role": "Backend Developer",
+      "submittedAgo": "5 days ago",
+      "status": "Not Qualified",
+      "experience": "4 years",
+      "email": "ana@email.com"
+    },
+    {
+      "id": "APP-005",
+      "name": "John Smith",
+      "role": "Project Manager",
+      "submittedAgo": "4 days ago",
+      "status": "Accepted",
+      "experience": "5 years",
+      "email": "john@email.com"
+    }
+  ]
+}

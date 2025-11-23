@@ -1,0 +1,48 @@
+{
+  "jobs": [
+    {
+      "id": "JOB-2025-001",
+      "title": "Senior Software Engineer",
+      "location": "Quezon City, Philippines",
+      "applicants": ["APP-001", "APP-002"],
+      "views": 210,
+      "status": "Active",
+      "postedAgo": "3 days ago",
+      "jobType": "Full-time · On-site",
+      "salaryRange": "₱70,000 - ₱90,000 / month"
+    },
+    {
+      "id": "JOB-2025-002",
+      "title": "UI/UX Designer",
+      "location": "Makati City, Philippines",
+      "applicants": ["APP-003"],
+      "views": 145,
+      "status": "Draft",
+      "postedAgo": "Not published",
+      "jobType": "Full-time · Hybrid",
+      "salaryRange": "₱45,000 - ₱60,000 / month"
+    },
+    {
+      "id": "JOB-2025-003",
+      "title": "HR Generalist",
+      "location": "Pasig City, Philippines",
+      "applicants": ["APP-004", "APP-005"],
+      "views": 302,
+      "status": "Active",
+      "postedAgo": "1 week ago",
+      "jobType": "Full-time · On-site",
+      "salaryRange": "₱30,000 - ₱40,000 / month"
+    },
+    {
+      "id": "JOB-2025-004",
+      "title": "Marketing Specialist",
+      "location": "Remote · Philippines",
+      "applicants": [],
+      "views": 98,
+      "status": "Closed",
+      "postedAgo": "Closed 2 weeks ago",
+      "jobType": "Contract · Remote",
+      "salaryRange": "₱25,000 - ₱35,000 / month"
+    }
+  ]
+}
