@@ -1,17 +1,11 @@
-export type RawMessage = {
-  id: number;
-  text: string;
-  sender: string;
-  time: string;
-  read?: boolean;
-};
+export type SenderType = "me" | "them";
 
 export type Message = {
   id: number;
   text: string;
-  sender: "me" | "them";
+  sender: SenderType;
   time: string;
-  read?: boolean;
+  read: boolean;
 };
 
 export type Chat = {
@@ -19,9 +13,10 @@ export type Chat = {
   company: string;
   representative: string;
   lastMessage: string;
+  lastSeen?: string;
   time: string;
   unread: boolean;
-  logo?: string;
-  lastSeen?: string;
-  messages: RawMessage[];
+  logo: string;
+  messages: Message[];
+  online: boolean;
 };

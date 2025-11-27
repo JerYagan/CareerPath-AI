@@ -80,10 +80,10 @@ const _layout = () => {
         />
 
         <Tabs.Screen
-          name="Chat"
+          name="Chats/index"
           options={{
-            title: "Messages",
-            tabBarLabel: "Chat",
+            title: "Chats",
+            tabBarLabel: "Chats",
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="chatbubble-outline" size={size} color={color} />
             ),
@@ -106,14 +106,7 @@ const _layout = () => {
         <Tabs.Screen name="Profile" options={{ href: null }} />
         <Tabs.Screen name="PostJob" options={{ href: null }} />
         <Tabs.Screen name="Candidates/[id]" options={{ href: null }} />
-        <Tabs.Screen
-          name="Chats"
-          options={{ href: null, headerShown: false }}
-        />
-        <Tabs.Screen
-          name="Chats/index"
-          options={{ href: null, headerShown: false }}
-        />
+
         <Tabs.Screen
           name="Chats/[id]"
           options={{ href: null, headerShown: false }}

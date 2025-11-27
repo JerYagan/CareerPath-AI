@@ -55,7 +55,9 @@ const AppliedSection = ({ appliedJobs, statusColors }: { appliedJobs: any[], sta
             <CustomButton
               title="View Application"
               icon="eye-outline"
-              className="border border-gray-300 w-2/3 flex-1 gap-2"
+              iconColor="white"
+              textClassName="text-white"
+              className="bg-brandBlue w-2/3 flex-1 gap-2"
             />
             <CustomButton
               title="Withdraw"

@@ -15,7 +15,7 @@ const SegmentTabs = <OptionType extends string>({
   labels,
   selected,
   setSelected,
-  activeColor = "#2563eb",
+  activeColor = "#1C388E",
   inactiveColor = "#9ca3af",
 }: TabsProps<OptionType>) => {
   const [tabWidth, setTabWidth] = useState(0);

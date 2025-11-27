@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import BottomModal from "../../../ui/BottomModal";
+import BottomModal from "./SearchResultModal";
 import locations from "../../../../assets/data/locations.json";
 
 const Search = () => {
@@ -27,9 +27,9 @@ const Search = () => {
 
   return (
     <View className="p-4">
-      <View className="flex-row space-x-2 border border-gray-300 rounded-xl">
+      <View className="flex-row space-x-2 border border-gray-300 rounded-xl bg-white">
         <TouchableOpacity
-          className="flex-[1.3] flex-row gap-2 px-4 py-3 items-center"
+          className="flex-[1.3] flex-row gap-2 px-4 py-4 items-center"
           onPress={() => setModalJobVisible(true)}
         >
           <Ionicons name="search-outline" size={18} />
@@ -39,11 +39,11 @@ const Search = () => {
         <View className="my-auto h-8 w-[1px] bg-gray-300" />
 
         <TouchableOpacity
-          className="flex-1 flex-row gap-2 px-4 py-3 justify-center items-center"
+          className="flex-1 flex-row gap-2 px-4 py-4 justify-center items-center overflow-hidden"
           onPress={() => setModalLocationVisible(true)}
         >
           <Ionicons name="location-outline" size={18} />
-          <Text className="text-black font-semibold text-center">{location}</Text>
+          <Text className="text-black font-semibold text-center flex-1" numberOfLines={1} ellipsizeMode="tail">{location}</Text>
         </TouchableOpacity>
       </View>
 

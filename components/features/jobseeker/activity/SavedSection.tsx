@@ -1,5 +1,5 @@
 import React from "react";
-import JobCard from "@/components/features/jobseeker/job/JobCard";
+import JobCard from "@/components/features/jobseeker/home/JobCard";
 
 const SavedSection = ({ savedJobs }: { savedJobs: any[] }) => (
   <>
@@ -11,7 +11,9 @@ const SavedSection = ({ savedJobs }: { savedJobs: any[] }) => (
         buttons={[
           {
             title: "Apply Now",
-            className: "bg-indigo-950 w-full flex-1",
+            icon: "paper-plane-outline",
+            iconColor: "white",
+            className: "bg-brandBlue w-full flex-1 gap-2",
             textClassName: "text-white",
             onPress: () => console.log("Apply to", job.title),
           },

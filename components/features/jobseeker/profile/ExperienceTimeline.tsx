@@ -6,7 +6,7 @@ const ExperienceTimeline = ({ exp }: any) => {
     <View className="flex-row mb-6">
       {/* Timeline */}
       <View className="items-center mr-4">
-        <View className="w-3 h-3 bg-indigo-600 rounded-full mt-1" />
+        <View className="w-3 h-3 bg-brandBlue rounded-full mt-1" />
         <View className="w-1 bg-indigo-200 flex-1 mt-1" />
       </View>
 

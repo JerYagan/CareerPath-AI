@@ -278,12 +278,12 @@ const UniversalEditModal: React.FC<UniversalModalProps> = ({
           </ScrollView>
 
           <View className="flex-row justify-end gap-6 mt-2">
-            <TouchableOpacity onPress={onClose}>
+            <TouchableOpacity onPress={onClose} className="p-2">
               <Text className="text-gray-500">Cancel</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={handleSave}>
-              <Text className="text-indigo-600 font-bold">Save</Text>
+            <TouchableOpacity onPress={handleSave} className="p-2">
+              <Text className="text-brandBlue font-bold">Save</Text>
             </TouchableOpacity>
           </View>
         </View>

@@ -56,7 +56,9 @@ const InterviewSection = ({ interviewJobs }: { interviewJobs: any[] }) => (
         <View className="mt-4">
           <CustomButton
             title="Join Interview"
-            className="bg-indigo-600 flex-1 gap-2"
+            icon="caret-forward-outline"
+            iconColor="white"
+            className="bg-brandBlue flex-1 gap-2"
             textClassName="text-white"
           />
 

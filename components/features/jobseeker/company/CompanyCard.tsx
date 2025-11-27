@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import CustomButton from "@/components/ui/CustomButton";
+import { Ionicons } from "@expo/vector-icons";
 
 interface CompanyCardProps {
   item: Company;
@@ -23,15 +24,22 @@ const CompanyCard = ({ item }: CompanyCardProps) => {
 
       {/* Info */}
       <View className="gap-1 mb-3">
-        <Text className="text-sm bg-blue-100 px-2 py-1 text-blue-800 rounded-md self-start">
+        <Text className="text-sm font-semibold bg-blue-100 px-2 py-1 text-blue-800 rounded-md self-start mb-2">
           {item.industry}
         </Text>
 
-        <Text className="text-sm text-gray-700">{item.location}</Text>
-        <Text className="text-sm text-gray-700">{item.employees}</Text>
-        <Text className="text-sm text-gray-700">
-          {item.openPositions} open positions
-        </Text>
+        <View className="flex-row items-center gap-2 mb-2">
+          <Ionicons name="location-outline" size={18} />
+          <Text className="text-gray-600">{item.location}</Text>
+        </View>
+        <View className="flex-row items-center gap-2 mb-2">
+          <Ionicons name="people-outline" size={18} />
+          <Text className="text-gray-600">{item.employees}</Text>
+        </View>
+        <View className="flex-row items-center gap-2 mb-2">
+          <Ionicons name="briefcase-outline" size={18} />
+          <Text className="text-gray-600">{item.openPositions} Open Positions</Text>
+        </View>
       </View>
 
       {/* Description */}
@@ -44,7 +52,7 @@ const CompanyCard = ({ item }: CompanyCardProps) => {
         {item.tags.map((tag) => (
           <Text
             key={tag}
-            className="text-sm bg-gray-200 px-3 py-1 rounded-md"
+            className="py-1 px-2 bg-gray-200 text-gray-600 font-bold rounded-lg text-sm"
           >
             {tag}
           </Text>
@@ -56,14 +64,17 @@ const CompanyCard = ({ item }: CompanyCardProps) => {
 
         <CustomButton
           title="View Jobs"
-          className="flex-1 bg-indigo-600"
+          icon="eye-outline"
+          iconColor="white"
+          className="flex-1 bg-brandBlue gap-2"
           textClassName="text-white text-base"
           onPress={() => console.log("View jobs for", item.name)}
         />
 
         <CustomButton
-          title="Company Page"
-          className="flex-1 bg-gray-200"
+          title="Website"
+          icon="globe-outline"
+          className="flex-1 bg-gray-200 gap-2"
           textClassName="text-gray-800 text-base"
           onPress={() => console.log("Open company page:", item.name)}
         />

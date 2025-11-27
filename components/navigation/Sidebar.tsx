@@ -7,7 +7,6 @@ import {
   Animated,
   Dimensions,
   TouchableWithoutFeedback,
-  PanResponder,
   Image,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -18,7 +17,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 const NAV_ITEMS = [
   { label: "Home", icon: "home-outline", route: "/jobseeker/Home" },
   { label: "Activity", icon: "time-outline", route: "/jobseeker/Activity" },
-  { label: "Chat", icon: "chatbubble-outline", route: "/jobseeker/Chat" },
+  { label: "Chats", icon: "chatbubble-outline", route: "/jobseeker/Chats" },
   {
     label: "Companies",
     icon: "business-outline",
@@ -26,9 +25,8 @@ const NAV_ITEMS = [
   },
   { label: "Career", icon: "school-outline", route: "/jobseeker/Career" },
   { label: "Profile", icon: "person-outline", route: "/jobseeker/Profile" },
+  { label: "Settings", icon: "settings-outline", route: "/Settings" },
 ] as const;
-
-const SETTINGS_ITEM = { label: "Settings", icon: "settings-outline" };
 
 type SidebarProps = {
   visible: boolean;
@@ -39,48 +37,30 @@ const Sidebar = ({ visible, onClose }: SidebarProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const screenWidth = Dimensions.get("window").width;
-  const sidebarWidth = screenWidth * 0.75;
-  const slideAnim = useRef(new Animated.Value(screenWidth)).current;
-  const overlayOpacity = useRef(new Animated.Value(0)).current; // <-- animated opacity
+  const sidebarWidth = screenWidth * 0.8;
+  const slideAnim = useRef(new Animated.Value(-sidebarWidth)).current;
+  const overlayOpacity = useRef(new Animated.Value(0)).current;
   const insets = useSafeAreaInsets();
 
+  // open / close animation only (no drag)
   useEffect(() => {
     Animated.parallel([
       Animated.timing(slideAnim, {
-        toValue: visible ? screenWidth - sidebarWidth : screenWidth,
-        duration: 300,
+        toValue: visible ? 0 : -sidebarWidth,
+        duration: 280,
         useNativeDriver: true,
       }),
       Animated.timing(overlayOpacity, {
-        toValue: visible ? 0.5 : 0, // target opacity
-        duration: 300,
+        toValue: visible ? 0.5 : 0,
+        duration: 280,
         useNativeDriver: true,
       }),
     ]).start();
-  }, [visible]);
-
-  const panResponder = useRef(
-    PanResponder.create({
-      onMoveShouldSetPanResponder: (_, gestureState) => gestureState.dx > 5,
-      onPanResponderMove: (_, gestureState) => {
-        if (gestureState.dx > 0)
-          slideAnim.setValue(screenWidth - sidebarWidth + gestureState.dx);
-      },
-      onPanResponderRelease: (_, gestureState) => {
-        if (gestureState.dx > 50) onClose();
-        else
-          Animated.timing(slideAnim, {
-            toValue: screenWidth - sidebarWidth,
-            duration: 200,
-            useNativeDriver: true,
-          }).start();
-      },
-    })
-  ).current;
+  }, [visible, sidebarWidth, slideAnim, overlayOpacity]);
 
   return (
     <>
-      {/* Animated dark overlay */}
+      {/* Overlay */}
       <TouchableWithoutFeedback onPress={onClose}>
         <Animated.View
           pointerEvents={visible ? "auto" : "none"}
@@ -103,35 +83,23 @@ const Sidebar = ({ visible, onClose }: SidebarProps) => {
           position: "absolute",
           top: insets.top,
           bottom: insets.bottom,
+          left: 0,
           width: sidebarWidth,
-          transform: [{ translateX: slideAnim }],
           backgroundColor: "white",
+          transform: [{ translateX: slideAnim }],
           zIndex: 10,
         }}
-        {...panResponder.panHandlers}
       >
         <ScrollView
           contentContainerStyle={{
             paddingTop: 20,
-            paddingBottom: 20,
+            paddingBottom: 24,
           }}
         >
           {/* Top bar */}
           <View className="flex-row justify-between items-center mb-6 px-6">
             <TouchableOpacity onPress={onClose}>
               <Ionicons name="menu-outline" size={28} color="#2563eb" />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                router.push("/Settings");
-                onClose();
-              }}
-            >
-              <Ionicons
-                name={SETTINGS_ITEM.icon as any}
-                size={24}
-                color="#6b7280"
-              />
             </TouchableOpacity>
           </View>
 
@@ -181,9 +149,13 @@ const Sidebar = ({ visible, onClose }: SidebarProps) => {
             </View>
           </View>
 
-          {/* Navigation Items */}
+          {/* Navigation Items (including Settings) */}
           {NAV_ITEMS.map((item) => {
-            const isActive = pathname === item.route;
+            const isActive =
+              item.route === "/Settings"
+                ? pathname === "/Settings"
+                : pathname.startsWith(item.route);
+
             return (
               <TouchableOpacity
                 key={item.label}
@@ -191,37 +163,33 @@ const Sidebar = ({ visible, onClose }: SidebarProps) => {
                   router.push(item.route);
                   onClose();
                 }}
-                activeOpacity={0.7}
-                className="flex-row items-center gap-4 p-4 relative"
+                activeOpacity={0.8}
+                className="relative px-6 py-4 mb-2"
               >
-                {/* Left active bar */}
                 {isActive && (
-                  <View
-                    style={{
-                      position: "absolute",
-                      left: 0,
-                      top: 0,
-                      bottom: 0,
-                      width: 4,
-                      backgroundColor: "#2563eb",
-                      borderRadius: 2,
-                    }}
-                  />
+                  <>
+                    {/* Left glow bar */}
+                    <View className="absolute left-0 top-0 bottom-0 w-1.5 bg-brandBlue rounded-r-full shadow-lg" />
+
+                    {/* Background highlight */}
+                    <View className="absolute left-3 right-3 top-1 bottom-1 bg-blue-50 rounded-2xl opacity-80" />
+                  </>
                 )}
 
-                <Ionicons
-                  name={item.icon as any}
-                  size={24}
-                  color={isActive ? "#2563eb" : "#6b7280"}
-                  className="w-12 text-center"
-                />
-                <Text
-                  className={`text-lg font-semibold ${
-                    isActive ? "text-blue-600" : "text-gray-900"
-                  }`}
-                >
-                  {item.label}
-                </Text>
+                <View className="flex-row items-center gap-4 relative">
+                  <Ionicons
+                    name={item.icon as any}
+                    size={24}
+                    color={isActive ? "#2563eb" : "#6b7280"}
+                  />
+                  <Text
+                    className={`text-lg font-semibold ${
+                      isActive ? "text-blue-700" : "text-gray-900"
+                    }`}
+                  >
+                    {item.label}
+                  </Text>
+                </View>
               </TouchableOpacity>
             );
           })}

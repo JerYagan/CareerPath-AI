@@ -1,10 +1,15 @@
 {
   "expo": {
-    "name": "careerpath",
+    "name": "PESO Jobs PH",
     "slug": "careerpath",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/peso-logo.png",
+    "splash": {
+      "image": "./assets/images/peso-logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1C388E"
+    },
     "scheme": "careerpath",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,

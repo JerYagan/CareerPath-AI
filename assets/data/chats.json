@@ -5,7 +5,8 @@
     "representative": "Sarah Mendoza",
     "lastMessage": "Thank you for submitting your portfolio. We'll get back to you soon!",
     "time": "10:45 AM",
-    "unread": true,
+    "unread": 3,
+    "online": true,
     "logo": "https://via.placeholder.com/100",
     "messages": [
       { "id": 1, "text": "Hi! Have you had a chance to review my portfolio?", "sender": "me", "time": "10:40 AM" },
@@ -19,7 +20,8 @@
     "representative": "Jonathan Cruz",
     "lastMessage": "Can we schedule the interview for tomorrow at 2 PM?",
     "time": "Yesterday",
-    "unread": false,
+    "unread": 0,
+    "online": false,
     "logo": "https://via.placeholder.com/100",
     "messages": [
       { "id": 1, "text": "Hi Jonathan, I’m available this week for an interview.", "sender": "me", "time": "9:30 AM" },
@@ -33,7 +35,8 @@
     "representative": "Alyssa Reyes",
     "lastMessage": "Thanks for the update, looking forward to hearing from your end.",
     "time": "Nov 5",
-    "unread": false,
+    "unread": 12,
+    "online": true,
     "logo": "https://via.placeholder.com/100",
     "messages": [
       { "id": 1, "text": "Hi Alyssa, I’ve updated the project files as discussed.", "sender": "me", "time": "2:15 PM" },

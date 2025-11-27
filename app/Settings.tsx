@@ -1,81 +1,153 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Switch, Image, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Switch,
+  Image,
+  ScrollView,
+  Alert,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import CustomButton from "@/components/ui/CustomButton";
+import * as Notifications from "expo-notifications";
+
+const brandBlue = "#1C388E";
 
 const Settings = () => {
-  const [notifications, setNotifications] = useState(true);
+  const router = useRouter();
+  const [notifEnabled, setNotifEnabled] = useState(true);
+
+  // Logout handler
+  const handleLogout = () => {
+    Alert.alert("Logout", "Are you sure you want to log out?", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Logout",
+        style: "destructive",
+        onPress: () => router.replace("/auth/Login"),
+      },
+    ]);
+  };
+
+  // Test push notification
+  const sendTestNotification = async () => {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "PESO Jobs PH",
+        body: "This is a test notification!",
+      },
+      trigger: null,
+    });
+  };
 
   return (
-    <ScrollView className="flex-1 bg-white p-4">
-
-      {/* Profile Header */}
-      <View className="items-center mb-6 mt-6">
+    <ScrollView className="flex-1 bg-gray-50 p-4">
+      {/* Profile Section */}
+      <View className="items-center mt-6 mb-8">
         <Image
           source={{ uri: "https://i.pravatar.cc/150" }}
           className="w-24 h-24 rounded-full"
         />
-        <Text className="text-xl font-semibold mt-3">John Doe</Text>
+        <Text className="text-xl font-semibold mt-3 text-gray-900">
+          John Doe
+        </Text>
         <Text className="text-gray-500">johndoe@gmail.com</Text>
       </View>
 
-      {/* Section: Account */}
-      <Text className="text-gray-400 text-sm mb-2">ACCOUNT</Text>
-      <View className="bg-gray-100 rounded-xl">
-        <TouchableOpacity className="flex-row items-center p-4 border-b border-gray-200">
-          <Ionicons name="person-outline" size={22} className="mr-3" />
-          <Text className="flex-1 text-base">Edit Profile</Text>
-          <Ionicons name="chevron-forward" size={20} />
-        </TouchableOpacity>
+      {/* ACCOUNT SECTION */}
+      <View className="mb-6">
+        <Text className="text-xs mb-2 tracking-wide text-gray-500">ACCOUNT</Text>
 
-        <TouchableOpacity className="flex-row items-center p-4">
-          <Ionicons name="lock-closed-outline" size={22} className="mr-3" />
-          <Text className="flex-1 text-base">Change Password</Text>
-          <Ionicons name="chevron-forward" size={20} />
-        </TouchableOpacity>
-      </View>
+        <View className="bg-white rounded-2xl shadow-sm overflow-hidden">
+          <TouchableOpacity className="flex-row items-center p-4 border-b border-gray-100">
+            <Ionicons name="person-outline" size={22} color={brandBlue} />
+            <Text className="flex-1 text-base ml-3 text-gray-800">
+              Edit Profile
+            </Text>
+            <Ionicons name="chevron-forward" size={20} color="#9ca3af" />
+          </TouchableOpacity>
 
-      {/* Section: Preferences */}
-      <Text className="text-gray-400 text-sm mb-2 mt-6">PREFERENCES</Text>
-      <View className="bg-gray-100 rounded-xl">
-        <View className="flex-row items-center p-4 border-b border-gray-200">
-          <Ionicons name="notifications-outline" size={22} className="mr-3" />
-          <Text className="flex-1 text-base">Notifications</Text>
-          <Switch
-            value={notifications}
-            onValueChange={setNotifications}
-          />
+          <TouchableOpacity className="flex-row items-center p-4">
+            <Ionicons name="lock-closed-outline" size={22} color={brandBlue} />
+            <Text className="flex-1 text-base ml-3 text-gray-800">
+              Change Password
+            </Text>
+            <Ionicons name="chevron-forward" size={20} color="#9ca3af" />
+          </TouchableOpacity>
         </View>
-
-        <TouchableOpacity className="flex-row items-center p-4">
-          <Ionicons name="language-outline" size={22} className="mr-3" />
-          <Text className="flex-1 text-base">Language</Text>
-          <Ionicons name="chevron-forward" size={20} />
-        </TouchableOpacity>
       </View>
 
-      {/* Section: Support */}
-      <Text className="text-gray-400 text-sm mb-2 mt-6">SUPPORT</Text>
-      <View className="bg-gray-100 rounded-xl">
-        <TouchableOpacity className="flex-row items-center p-4 border-b border-gray-200">
-          <Ionicons name="help-circle-outline" size={22} className="mr-3" />
-          <Text className="flex-1 text-base">Help Center</Text>
-          <Ionicons name="chevron-forward" size={20} />
-        </TouchableOpacity>
-
-        <TouchableOpacity className="flex-row items-center p-4">
-          <Ionicons name="document-text-outline" size={22} className="mr-3" />
-          <Text className="flex-1 text-base">Terms & Conditions</Text>
-          <Ionicons name="chevron-forward" size={20} />
-        </TouchableOpacity>
-      </View>
-
-      {/* Logout Button */}
-      <TouchableOpacity className="bg-red-500 py-3 rounded-xl mt-8 mb-14">
-        <Text className="text-center text-white font-semibold text-base">
-          Log Out
+      {/* PREFERENCES SECTION */}
+      <View className="mb-6">
+        <Text className="text-xs mb-2 tracking-wide text-gray-500">
+          PREFERENCES
         </Text>
-      </TouchableOpacity>
 
+        <View className="bg-white rounded-2xl shadow-sm overflow-hidden">
+          <View className="flex-row items-center p-4 border-b border-gray-100">
+            <Ionicons
+              name="notifications-outline"
+              size={22}
+              color={brandBlue}
+            />
+            <Text className="flex-1 text-base ml-3 text-gray-800">
+              Notifications
+            </Text>
+            <Switch value={notifEnabled} onValueChange={setNotifEnabled} />
+          </View>
+        </View>
+      </View>
+
+      {/* SUPPORT SECTION */}
+      <View className="mb-6">
+        <Text className="text-xs mb-2 tracking-wide text-gray-500">
+          SUPPORT
+        </Text>
+
+        <View className="bg-white rounded-2xl shadow-sm overflow-hidden">
+          <TouchableOpacity className="flex-row items-center p-4 border-b border-gray-100">
+            <Ionicons name="help-circle-outline" size={22} color={brandBlue} />
+            <Text className="flex-1 text-base ml-3 text-gray-800">
+              Help Center
+            </Text>
+            <Ionicons name="chevron-forward" size={20} color="#9ca3af" />
+          </TouchableOpacity>
+
+          <TouchableOpacity className="flex-row items-center p-4">
+            <Ionicons
+              name="document-text-outline"
+              size={22}
+              color={brandBlue}
+            />
+            <Text className="flex-1 text-base ml-3 text-gray-800">
+              Terms & Conditions
+            </Text>
+            <Ionicons name="chevron-forward" size={20} color="#9ca3af" />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      {/* TEST NOTIFICATION BUTTON */}
+      <CustomButton
+        icon="notifications"
+        iconColor="white"
+        title="Send Test Notification"
+        onPress={sendTestNotification}
+        className="bg-[#1C388E] py-4 rounded-xl mb-4"
+        textClassName="text-white text-base ml-2"
+      />
+
+      {/* LOGOUT BUTTON */}
+      <CustomButton
+        icon="log-out-outline"
+        iconColor="white"
+        title="Log Out"
+        onPress={handleLogout}
+        className="bg-red-500 py-4 rounded-xl mb-14"
+        textClassName="text-white text-base ml-2"
+      />
     </ScrollView>
   );
 };

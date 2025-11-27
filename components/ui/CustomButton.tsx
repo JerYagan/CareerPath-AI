@@ -14,7 +14,7 @@ type Props = {
 export default function CustomButton({
   icon,
   iconSize = 18,
-  iconColor = "black",        // <-- DEFAULT ICON COLOR
+  iconColor = "black",
   title,
   onPress,
   className = "",
@@ -29,11 +29,11 @@ export default function CustomButton({
         <Ionicons
           name={icon}
           size={iconSize}
-          color={iconColor}    // <-- USE NEW PROP HERE
+          color={iconColor}
         />
       )}
 
-      <Text className={`font-semibold text-center ml-2 ${textClassName}`}>
+      <Text className={`font-semibold text-center ${textClassName}`}>
         {title}
       </Text>
     </TouchableOpacity>
