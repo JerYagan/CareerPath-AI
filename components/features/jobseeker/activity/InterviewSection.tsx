@@ -1,83 +1,98 @@
-import React from "react";
-import { View, Text, Image } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, Image, Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import SkeletonCard from "@/components/ui/SkeletonCard";
 import CustomButton from "@/components/ui/CustomButton";
+import * as Linking from "expo-linking";
+import type { Job } from "@/types/job";
 
-const InterviewSection = ({ interviewJobs }: { interviewJobs: any[] }) => (
-  <>
-    {interviewJobs.map((job) => (
-      <View
-        key={job.id}
-        className="mb-4 p-6 border border-blue-600 rounded-lg bg-blue-50"
-      >
-        <View className="flex-row items-start justify-between">
-          <View className="flex-row items-center gap-2">
+const openCalendarApp = () => {
+  if (Platform.OS === "ios") Linking.openURL("calshow:");
+  else Linking.openURL("content://com.android.calendar/time/");
+};
+
+export default function InterviewSection({ interviewJobs }: { interviewJobs: Job[] }) {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+  const t = setTimeout(() => {
+    setLoading(false);
+  }, 700);
+
+  return () => clearTimeout(t); // ✅ cleanup function
+}, []);
+
+  if (loading) return <><SkeletonCard /><SkeletonCard /></>;
+
+  return (
+    <>
+      {interviewJobs.map((job) => (
+        <View
+          key={job.id}
+          className="mb-4 p-6 bg-blue-50 border border-blue-600 rounded-lg"
+        >
+          {/* Header */}
+          <View className="flex-row items-start gap-2">
             <Image
-              source={{ uri: "https://via.placeholder.com/50" }}
-              className="w-12 h-12 bg-gray-200 rounded-md"
+              source={{ uri: job.logo || "https://via.placeholder.com/50" }}
+              className="w-12 h-12 bg-gray-200 rounded-lg"
             />
             <View>
-              <Text className="text-xl font-bold mb-1">{job.title}</Text>
+              <Text className="text-xl font-bold">{job.title}</Text>
               <Text className="text-gray-600">{job.company}</Text>
             </View>
           </View>
-        </View>
 
-        {job.interviewDetails && (
-          <View className="mb-4 mt-8">
-            <View className="flex-row flex-wrap gap-4 mb-2">
+          {/* Details */}
+          <View className="mt-6 space-y-2">
+            <View className="flex-row items-center gap-2">
               <Ionicons name="calendar-outline" size={18} />
-              <Text className="text-gray-700">{job.interviewDetails.date}</Text>
+              <Text className="text-gray-700">{job.interviewDetails?.date}</Text>
             </View>
-            <View className="flex-row gap-4 mb-2">
+
+            <View className="flex-row items-center gap-2">
               <Ionicons name="time-outline" size={18} />
-              <Text className="text-gray-700">{job.interviewDetails.time}</Text>
+              <Text className="text-gray-700">{job.interviewDetails?.time}</Text>
             </View>
-            <View className="flex-row gap-4 mb-2">
-              <Ionicons name="briefcase-outline" size={18} />
-              <Text className="text-gray-700">{job.interviewDetails.mode}</Text>
-            </View>
-            <View className="flex-row gap-4 mb-2 overflow-hidden">
+
+            <View className="flex-row items-center gap-2">
               <Ionicons name="location-outline" size={18} />
-              <Text className="text-gray-700 w-5/6">
-                {job.interviewDetails.place}
-              </Text>
+              <Text className="text-gray-700">{job.interviewDetails?.place}</Text>
             </View>
-            <Text className="text-gray-500 mt-2">
-              <Text className="font-semibold">Interviewer: </Text>
-              <Text className="text-gray-800">
-                {job.interviewDetails.interviewerPosition} -{" "}
-                {job.interviewDetails.interviewerName}
-              </Text>
-            </Text>
           </View>
-        )}
 
-        <View className="mt-4">
-          <CustomButton
-            title="Join Interview"
-            icon="caret-forward-outline"
-            iconColor="white"
-            className="bg-brandBlue flex-1 gap-2"
-            textClassName="text-white"
-          />
+          {/* Buttons */}
+          <View className="mt-6 gap-3">
+            <CustomButton
+              title="Join Interview"
+              icon="caret-forward-outline"
+              iconColor="white"
+              className="bg-brandBlue gap-2"
+              textClassName="text-white font-semibold"
+              onPress={() => {
+                const link = job.interviewDetails?.link || job.interviewDetails?.meetingLink;
+                if (link) Linking.openURL(link);
+              }}
+            />
 
-          <View className="flex-row gap-2 mt-2">
-            <CustomButton
-              title="Reschedule"
-              icon="calendar-outline"
-              className="bg-white border border-gray-300 flex-1 gap-2"
-            />
-            <CustomButton
-              title="Add to Calendar"
-              icon="add-outline"
-              className="bg-white border border-gray-300 flex-1 gap-2"
-            />
+            <View className="flex-row gap-3">
+              <CustomButton
+                title="Reschedule"
+                icon="calendar-outline"
+                className="border border-gray-300 flex-1 gap-2"
+                textClassName="text-gray-700"
+                onPress={openCalendarApp}
+              />
+              <CustomButton
+                title="Add to Calendar"
+                icon="add-outline"
+                className="border border-gray-300 flex-1 gap-2"
+                textClassName="text-gray-700"
+                onPress={openCalendarApp}
+              />
+            </View>
           </View>
         </View>
-      </View>
-    ))}
-  </>
-);
-
-export default InterviewSection;
+      ))}
+    </>
+  );
+}

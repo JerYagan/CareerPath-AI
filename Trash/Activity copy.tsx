@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { View, Text, Image, TouchableOpacity, ScrollView, RefreshControl } from "react-native";
 import jobs from "@/assets/data/jobs.json";
-import JobCard from "@/components/features/jobseeker/home/JobCard";
+import JobCard from "@/components/features/jobseeker/home/HomeCard";
 import { Ionicons } from "@expo/vector-icons";
 import CustomButton from "@/components/ui/CustomButton";
 

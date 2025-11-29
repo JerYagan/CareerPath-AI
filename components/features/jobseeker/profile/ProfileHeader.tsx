@@ -1,47 +1,57 @@
 import React from "react";
-import { View, Text, Animated, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
-const ProfileHeader = ({ scrollY, user }: any) => {
-  const headerHeight = scrollY.interpolate({
-    inputRange: [0, 120],
-    outputRange: [180, 80],
-    extrapolate: "clamp",
-  });
+interface Props {
+  user: any;
+  onEditPress: () => void;
+  onChangePhoto: () => void;
+}
 
-  const imageSize = scrollY.interpolate({
-    inputRange: [0, 120],
-    outputRange: [100, 45],
-    extrapolate: "clamp",
-  });
-
-  const nameOpacity = scrollY.interpolate({
-    inputRange: [0, 60],
-    outputRange: [1, 0],
-    extrapolate: "clamp",
-  });
-
+const ProfileHeader: React.FC<Props> = ({
+  user,
+  onEditPress,
+  onChangePhoto,
+}) => {
   return (
-    <Animated.View
-      style={{ height: headerHeight }}
-      className="w-full justify-center items-center bg-gray-50"
-    >
-      <Animated.Image
-        source={{ uri: user.profilePicture }}
-        style={{
-          width: imageSize,
-          height: imageSize,
-          borderRadius: 9999,
-        }}
-        className="border-2 border-white shadow-lg"
-      />
+    <View className="w-full items-center bg-gradient-to-b from-brandBlue to-brandBlue/70 rounded-b-3xl shadow-md px-4 pt-10 pb-6 h-[260px]">
+      
+      {/* Profile Picture */}
+      <View className="relative">
+        <Image
+          source={{ uri: "https://i.pravatar.cc/190" }}
+          className="w-32 h-32 rounded-full border-4 border-white shadow-xl"
+        />
 
-      <Animated.Text
-        style={{ opacity: nameOpacity }}
-        className="text-2xl font-bold text-gray-900 mt-3"
-      >
+        {/* Edit Photo Button */}
+        <TouchableOpacity
+          onPress={onChangePhoto}
+          className="absolute bottom-1 right-1 bg-black/70 p-2 rounded-full"
+        >
+          <Ionicons name="camera-outline" size={18} color="white" />
+        </TouchableOpacity>
+      </View>
+
+      {/* Name */}
+      <Text className="text-3xl font-bold text-brandBlue mt-4">
         {user.name}
-      </Animated.Text>
-    </Animated.View>
+      </Text>
+
+      {user.position && (
+        <Text className="text-brandBlue text-base mt-1">
+          {user.position}
+        </Text>
+      )}
+
+      {/* Edit Button */}
+      <TouchableOpacity
+        onPress={onEditPress}
+        className="mt-3 bg-white py-2 px-4 rounded-full flex-row items-center gap-2 shadow-md"
+      >
+        <Ionicons name="pencil-outline" size={18} color="#1C388E" />
+        <Text className="text-brandBlue font-semibold">Edit Profile</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 

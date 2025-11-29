@@ -63,7 +63,7 @@ const ChatList: React.FC<ChatListProps> = ({ chats, routeBase }) => {
 
               {/* Online / Offline Dot */}
               <View
-                className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white ${
+                className={`absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-white ${
                   chat.online ? "bg-green-700" : "bg-gray-400"
                 }`}
               />
@@ -92,10 +92,10 @@ const ChatList: React.FC<ChatListProps> = ({ chats, routeBase }) => {
                 </Text>
 
                 {/* UNREAD BADGE ON THE RIGHT SIDE */}
-                {unreadCount > 0 && (
+                {chat.unreadCount > 0 && (
                   <View className="bg-brandBlue px-2 py-0.5 rounded-full ml-2 min-w-[20px] items-center justify-center">
                     <Text className="text-white text-xs font-bold">
-                      {unreadCount > 99 ? "99+" : unreadCount}
+                      {chat.unreadCount > 99 ? "99+" : chat.unreadCount}
                     </Text>
                   </View>
                 )}

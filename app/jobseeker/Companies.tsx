@@ -16,6 +16,7 @@ import StatsRow from "@/components/features/jobseeker/company/StatsRow";
 import CompanyCard from "@/components/features/jobseeker/company/CompanyCard";
 import companiesJSON from "@/assets/data/companies.json";
 import AppSearchBar from "@/components/ui/AppSearchBar";
+import FilterSheet from "@/components/features/jobseeker/company/FilterSheet";
 
 const PAGE_SIZE = 3;
 const industries = ["All", "Technology", "IT Services", "Design"];
@@ -149,10 +150,8 @@ const Companies = () => {
           value={searchInput}
           onChange={setSearchInput}
           placeholder="Search companies..."
-          showLeftIcon={true}
           leftIcon="options-outline"
           onLeftIconPress={() => setIsFilterOpen(true)}
-          showRightButton={true}
           rightButtonLabel="Search"
           onRightButtonPress={handleSearch}
         />
@@ -199,76 +198,13 @@ const Companies = () => {
       </ScrollView>
 
       {/* Filter Modal */}
-      <Modal
+      <FilterSheet
         visible={isFilterOpen}
-        transparent
-        animationType="slide"
-        onRequestClose={() => setIsFilterOpen(false)}
-      >
-        <View className="flex-1 bg-black/40 justify-end">
-          <View className="bg-white rounded-t-2xl p-5 gap-4">
-            <View className="flex-row justify-between items-center">
-              <Text className="text-xl font-semibold">Filters</Text>
-              <TouchableOpacity onPress={() => setIsFilterOpen(false)}>
-                <Text className="text-lg">✕</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View className="gap-2">
-              <Text className="text-base font-medium">Industry</Text>
-
-              <View className="flex-row flex-wrap gap-2">
-                {industries.map((item) => {
-                  const isActive = selectedIndustry === item;
-                  return (
-                    <TouchableOpacity
-                      key={item}
-                      className={`px-3 py-2 rounded-full border ${
-                        isActive
-                          ? "bg-indigo-600 border-indigo-600"
-                          : "bg-gray-100 border-gray-300"
-                      }`}
-                      onPress={() => setSelectedIndustry(item)}
-                    >
-                      <Text
-                        className={`text-base ${
-                          isActive ? "text-white" : "text-gray-800"
-                        }`}
-                      >
-                        {item}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
-            </View>
-
-            <View className="flex-row gap-3 mt-4">
-              <TouchableOpacity
-                className="flex-1 bg-gray-200 py-3 rounded-lg"
-                onPress={() => {
-                  setSelectedIndustry("All");
-                  setIsFilterOpen(false);
-                }}
-              >
-                <Text className="text-center text-base text-gray-800 font-medium">
-                  Clear
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                className="flex-1 bg-indigo-600 py-3 rounded-lg"
-                onPress={() => setIsFilterOpen(false)}
-              >
-                <Text className="text-center text-base text-white font-medium">
-                  Apply
-                </Text>
-              </TouchableOpacity>
-            </View>
-
-          </View>
-        </View>
-      </Modal>
+        onClose={() => setIsFilterOpen(false)}
+        industries={industries}
+        selectedIndustry={selectedIndustry}
+        setSelectedIndustry={setSelectedIndustry}
+      />
     </View>
   );
 };

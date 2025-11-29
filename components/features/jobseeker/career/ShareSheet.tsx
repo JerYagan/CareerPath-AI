@@ -5,7 +5,7 @@ import DraggableSheet from "./DraggableSheet";
 
 const ShareSheet = ({ visible, onClose }: any) => {
   return (
-    <DraggableSheet visible={visible} onClose={onClose}>
+    <DraggableSheet visible={visible} onClose={onClose} height="half">
       <View>
         <Text className="text-lg font-semibold text-gray-900 mb-4">
           Share Post

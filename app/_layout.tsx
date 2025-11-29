@@ -4,7 +4,7 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import { useState, useEffect } from "react";
 import SplashWrapper from "@/components/splash/SplashWrapper";
 import SwipeableSidebarWrapper from "@/components/navigation/SwipeableSidebarWrapper";
-import Sidebar from "@/components/navigation/Sidebar";
+import Sidebar from "@/components/navigation/SharedSidebar";
 import * as Notifications from "expo-notifications";
 
 

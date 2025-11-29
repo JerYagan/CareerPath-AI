@@ -210,7 +210,7 @@ const Career = () => {
         {/* NEW POST BUTTON */}
         <TouchableOpacity
           onPress={() => setPostModalVisible(true)}
-          className="w-full bg-blue-600 py-3 rounded-lg flex-row justify-center items-center mb-6"
+          className="w-full bg-brandBlue py-3 rounded-lg flex-row justify-center items-center mb-6"
         >
           <Ionicons name="add" size={20} color="#fff" />
           <Text className="text-white font-semibold text-base ml-1">New Post</Text>

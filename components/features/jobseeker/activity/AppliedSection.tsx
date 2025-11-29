@@ -1,74 +1,102 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import SkeletonCard from "@/components/ui/SkeletonCard";
 import CustomButton from "@/components/ui/CustomButton";
+import type { Job } from "@/types/job";
 
-const AppliedSection = ({ appliedJobs, statusColors }: { appliedJobs: any[], statusColors: Record<string, string> }) => (
-  <>
-    {appliedJobs.map((job) => (
-      <View
-        key={job.id}
-        className="mb-4 p-6 border border-gray-300 rounded-lg bg-white"
-      >
-        <View className="flex-row items-start justify-between">
-          <View className="flex-row items-center gap-2">
+export default function AppliedSection({
+  appliedJobs,
+  statusColors,
+  onViewApplication,
+}: {
+  appliedJobs: Job[];
+  statusColors: Record<string, string>;
+  onViewApplication: (job: Job) => void;
+}) {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 700);
+  }, []);
+
+  if (loading) return <><SkeletonCard /><SkeletonCard /></>;
+
+  return (
+    <>
+      {appliedJobs.map((job) => (
+        <View
+          key={job.id}
+          className="mb-4 p-6 bg-white border border-gray-300 rounded-lg"
+        >
+          {/* Header */}
+          <View className="flex-row items-start gap-2">
             <Image
-              source={{ uri: "https://via.placeholder.com/50" }}
-              className="w-12 h-12 bg-gray-200 rounded-md"
+              source={{ uri: job.logo || "https://via.placeholder.com/50" }}
+              className="w-12 h-12 bg-gray-200 rounded-lg"
             />
-            <View>
-              <Text className="text-xl font-bold mb-1">{job.title}</Text>
+            <View className="flex-1">
+              <Text className="text-xl font-bold">{job.title}</Text>
               <Text className="text-gray-600">{job.company}</Text>
             </View>
           </View>
-        </View>
 
-        {job.status && (
-          <View className="flex-row mt-4">
-            <Text
-              className={`px-3 py-1 rounded-lg text-sm font-semibold ${
-                statusColors[job.status] || "bg-gray-200 text-gray-600"
-              }`}
-            >
-              {job.status}
-            </Text>
+          {/* Info */}
+          <View className="mt-2 flex-wrap">
+            {job.status && (
+              <Text
+                className={`px-3 py-1 rounded-lg text-sm font-semibold ${
+                  statusColors[job.status] || "bg-gray-200 text-gray-700"
+                }`}
+              >
+                {job.status}
+              </Text>
+            )}
           </View>
-        )}
+          <View className="mt-6 space-y-2">
+            <View className="flex-row items-center gap-2">
+              <Ionicons name="location-outline" size={18} />
+              <Text className="text-gray-600">{job.location}</Text>
+            </View>
 
-        <View className="mt-8">
-          <View className="flex-row items-center gap-4 mb-2">
-            <Ionicons name="location-outline" size={18} />
-            <Text className="text-gray-500">{job.location}</Text>
+            <View className="flex-row items-center gap-2">
+              <Ionicons name="cash-outline" size={18} />
+              <Text className="text-gray-600">{job.salary}</Text>
+            </View>
+
+            <View className="flex-row items-center gap-2">
+              <Ionicons name="briefcase-outline" size={18} />
+              <Text className="text-gray-600">{job.type}</Text>
+            </View>
+
+            <View className="flex-row items-center gap-2">
+              <Ionicons name="time-outline" size={18} />
+              <Text className="text-gray-600">{job.posted}</Text>
+            </View>
           </View>
 
-          <View className="flex-row items-center gap-4 mb-2">
-            <Ionicons name="cash-outline" size={18} />
-            <Text className="text-gray-500">{job.salary}</Text>
-          </View>
+          {/* Description */}
+          <Text className="mt-4 text-gray-600">{job.description}</Text>
 
-          <View className="flex-row items-center gap-4 mb-2">
-            <Ionicons name="briefcase-outline" size={18} />
-            <Text className="text-gray-500">{job.type}</Text>
-          </View>
-
-          <View className="flex-row space-between gap-2 mt-4">
+          {/* Buttons */}
+          <View className="flex-row gap-3 mt-6">
             <CustomButton
-              title="View Application"
+              title="View"
               icon="eye-outline"
               iconColor="white"
-              textClassName="text-white"
-              className="bg-brandBlue w-2/3 flex-1 gap-2"
+              className="bg-brandBlue flex-1 gap-2 w-2/3"
+              textClassName="text-white font-semibold"
+              onPress={() => onViewApplication(job)}
             />
             <CustomButton
               title="Withdraw"
               icon="return-up-back-outline"
-              className="border border-gray-300 w-1/3 gap-2"
+              className="border border-gray-300 flex-1 gap-2 w-1/3"
+              textClassName="text-gray-700"
             />
           </View>
         </View>
-      </View>
-    ))}
-  </>
-);
-
-export default AppliedSection;
+      ))}
+    </>
+  );
+}

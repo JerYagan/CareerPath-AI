@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text } from "react-native";
 import CustomButton from "@/components/ui/CustomButton";
 import { Ionicons } from "@expo/vector-icons";
+import SkillsPreview from "@/components/ui/SkillsPreview";
+import SkillsModal from "@/components/ui/SkillsModal";
 
 interface CompanyCardProps {
   item: Company;
 }
 
 const CompanyCard = ({ item }: CompanyCardProps) => {
+  const [isTagsOpen, setIsTagsOpen] = useState(false);
+
   return (
     <View className="bg-white rounded-xl p-5 mb-4 shadow-sm border border-gray-100">
 
@@ -48,19 +52,19 @@ const CompanyCard = ({ item }: CompanyCardProps) => {
       </Text>
 
       {/* Tags */}
-      <View className="flex-row flex-wrap gap-2 mb-4">
-        {item.tags.map((tag) => (
-          <Text
-            key={tag}
-            className="py-1 px-2 bg-gray-200 text-gray-600 font-bold rounded-lg text-sm"
-          >
-            {tag}
-          </Text>
-        ))}
-      </View>
+      <SkillsPreview
+        skills={item.tags}
+        onPress={() => setIsTagsOpen(true)}
+      />
+
+      <SkillsModal
+        visible={isTagsOpen}
+        onClose={() => setIsTagsOpen(false)}
+        skills={item.tags}
+      />
 
       {/* Buttons */}
-      <View className="flex-row gap-3">
+      <View className="flex-row gap-3 mt-4">
 
         <CustomButton
           title="View Jobs"

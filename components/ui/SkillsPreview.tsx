@@ -3,7 +3,7 @@ import { View, Text, Pressable } from "react-native";
 
 type Props = {
   skills: string[];
-  onPress: () => void;
+  onPress?: () => void;
 };
 
 const SkillsPreview: React.FC<Props> = ({ skills, onPress }) => {

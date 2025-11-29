@@ -1,111 +1,96 @@
+// components/features/employer/candidates/CandidateCard.tsx
 import React from "react";
-import { View, Text, Image } from "react-native";
-import { router } from "expo-router";
+import { View, Text } from "react-native";
 import CustomButton from "@/components/ui/CustomButton";
 import { Ionicons } from "@expo/vector-icons";
 
-type Candidate = {
-  id: string;
-  name: string;
-  role: string;
-  skills: string[];
-  experience: string;
-  location: string;
-  email: string;
-  status: string;
-  pfp?: string; // optional profile picture URL
+const brandBlue = "#1C388E";
+
+type CandidateCardProps = {
+  candidate: any;
+  onViewProfile: () => void;
 };
 
-const CandidateCard = ({ item }: { item: Candidate }) => {
-  const statusStyles = getStatusColors(item.status);
+export default function CandidateCard({ candidate, onViewProfile }: CandidateCardProps) {
+  const visibleSkills = candidate.skills.slice(0, 3);
+  const extra = candidate.skills.length - visibleSkills.length;
 
   return (
     <View className="bg-white rounded-2xl p-5 mb-4 shadow-sm">
-      {/* HEADER: Avatar + Name */}
-      <View className="flex-row items-center">
-        <Image
-          source={{ uri: item.pfp || "https://i.pravatar.cc/150?img=12" }}
-          className="w-14 h-14 rounded-full mr-4"
-        />
 
-        <View className="flex-1">
-          <Text className="text-lg font-bold text-gray-900">{item.name}</Text>
-          <Text className="text-gray-500">{item.email}</Text>
-        </View>
-
-        {/* Status */}
-        <View className={`self-start mt-2 px-3 py-1 rounded-full ${statusStyles.bgClass}`}>
-            <Text className={`font-medium text-sm ${statusStyles.textClass}`}>
-            {item.status}
+      {/* Header */}
+      <View className="flex-row items-center justify-between">
+        <View className="flex-row items-center">
+          <View className="w-14 h-14 rounded-full bg-brandBlue items-center justify-center">
+            <Text className="text-white font-bold text-lg">
+              {candidate.initials}
             </Text>
+          </View>
+
+          <View className="ml-4">
+            <Text className="text-lg font-semibold text-gray-900">{candidate.name}</Text>
+            <Text className="text-gray-500 text-sm">{candidate.role}</Text>
+            <Text className="text-gray-400 text-xs">
+              {candidate.experience} yrs exp • {candidate.education}
+            </Text>
+          </View>
         </View>
+
+        <Text className="text-sm text-gray-400">{candidate.status}</Text>
       </View>
 
-      {/* Role + Experience */}
-      <View className="mt-3">
-        <Text className="font-medium text-gray-800">{item.role}</Text>
-        <Text className="text-gray-500">{item.experience} experience</Text>
-        <Text className="text-gray-500">{item.location}</Text>
+      {/* Location */}
+      <View className="flex-row items-center mt-3">
+        <Ionicons name="location-outline" size={16} color="#6b7280" />
+        <Text className="ml-1 text-gray-600">{candidate.province}, {candidate.city}</Text>
       </View>
 
       {/* Skills */}
-      <View className="flex-row flex-wrap mt-3">
-        {item.skills.map((skill) => (
-          <View
-            key={skill}
-            className="px-3 py-1 bg-gray-100 rounded-lg mr-2 mb-2"
-          >
-            <Text className="text-gray-700 font-bold text-sm">{skill}</Text>
+      <View className="flex-row flex-wrap gap-2 mt-3">
+        {visibleSkills.map((skill: string) => (
+          <View key={skill} className="px-3 py-1 bg-gray-100 rounded-lg flex-row items-center">
+            <Ionicons name="pricetag-outline" size={14} color="#6b7280" />
+            <Text className="ml-1 text-gray-700 font-medium text-xs">{skill}</Text>
           </View>
         ))}
+        {extra > 0 && (
+          <View className="px-3 py-1 bg-gray-100 rounded-full">
+            <Text className="text-gray-600 font-medium text-xs">+{extra} more</Text>
+          </View>
+        )}
       </View>
 
-      {/* BUTTONS */}
-      <View className="mt-2 gap-2">
-        <CustomButton
-          title="View Profile"
-          icon="person-circle-outline"
-          className="bg-gray-200 rounded-xl px-4"
-          textClassName="text-gray-800"
-          iconColor="#333"
-          onPress={() => router.push(`/employer/Candidates/${item.id}`)}
-        />
-
-        <View className="flex-row items-center justify-between gap-2">
-          <CustomButton
-            title="Save"
-            icon="bookmark-outline"
-            className="bg-gray-100 rounded-xl px-4 flex-1 w-1/2"
-            textClassName="text-gray-800"
-            iconColor="#333"
-          />
-
-          <CustomButton
-            title="Contact"
-            icon="chatbubble-ellipses-outline"
-            className="bg-blue-600 rounded-xl px-4 flex-1 w-1/2"
-            textClassName="text-white"
-            iconColor="#fff"
-            onPress={() => router.push(`/employer/Candidates/${item.id}`)}
+      {/* Match Score */}
+      <View className="mt-4">
+        <Text className="text-gray-700 font-semibold mb-1">Match Score</Text>
+        <View className="h-2 bg-gray-200 rounded-full overflow-hidden">
+          <View
+            className="h-full"
+            style={{ width: `${candidate.match}%`, backgroundColor: brandBlue }}
           />
         </View>
-
       </View>
+
+      {/* Actions */}
+      <View className="flex-row gap-3 mt-5">
+        <CustomButton
+          title="View Profile"
+          icon="person-outline"
+          className="flex-1 bg-gray-100 rounded-xl py-3 gap-2"
+          textClassName="text-gray-800"
+          iconColor="#4b5563"
+          onPress={onViewProfile}
+        />
+
+        <CustomButton
+          title="Message"
+          icon="chatbubble-outline"
+          className="flex-1 bg-brandBlue rounded-xl py-3 gap-2"
+          textClassName="text-white"
+          iconColor="white"
+        />
+      </View>
+
     </View>
   );
-};
-
-export default CandidateCard;
-
-const getStatusColors = (status: string) => {
-  switch (status) {
-    case "Available":
-      return { bgClass: "bg-green-100", textClass: "text-green-700" };
-    case "Open to Work":
-      return { bgClass: "bg-blue-100", textClass: "text-blue-700" };
-    case "Not Available":
-      return { bgClass: "bg-red-100", textClass: "text-red-700" };
-    default:
-      return { bgClass: "bg-gray-100", textClass: "text-gray-700" };
-  }
-};
+}

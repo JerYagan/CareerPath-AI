@@ -29,7 +29,7 @@ const Notifications = () => {
   return (
     <SafeAreaView edges={["top"]} className="flex-1 bg-white">
       {/* Header */}
-      <View className="flex-row items-center p-4 border-b border-gray-200">
+      <View className="flex-row items-center p-6 border-b border-gray-200">
         <TouchableOpacity onPress={() => router.back()} className="pr-4">
           <Ionicons name="arrow-back-outline" size={28} color="black" />
         </TouchableOpacity>

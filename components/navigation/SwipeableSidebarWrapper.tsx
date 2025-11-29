@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { View, PanResponder, Dimensions } from "react-native";
-import Sidebar from "./Sidebar";
+import Sidebar from "./SharedSidebar";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 

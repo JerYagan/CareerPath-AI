@@ -1,11 +1,18 @@
 export type SenderType = "me" | "them";
 
+export type MessageAttachment = {
+  uri: string;
+  name: string;
+  mimeType: string;
+};
+
 export type Message = {
   id: number;
   text: string;
   sender: SenderType;
   time: string;
   read: boolean;
+  attachment?: MessageAttachment;
 };
 
 export type Chat = {
@@ -19,4 +26,5 @@ export type Chat = {
   logo: string;
   messages: Message[];
   online: boolean;
+  unreadCount: number;
 };

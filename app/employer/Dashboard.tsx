@@ -1,101 +1,148 @@
-import React, { useState, useMemo } from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import React from "react";
+import { View, Text, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import SegmentTabs from "@/components/ui/SegmentTabs";
-import candidatesData from "@/assets/data/employerData/candidates.json";
 import MetricCard from "@/components/features/employer/dashboard/MetricCard";
-import CandidateCard from "@/components/features/employer/candidates/CandidateCard";
+import CandidateItem from "@/components/features/employer/dashboard/CandidateItem";
 
-
-const options = ["saved", "selected", "pending", "archived"] as const;
-
-const labels = {
-  saved: "Saved",
-  selected: "Selected",
-  pending: "Pending",
-  archived: "Archived",
-};
-
-type Candidate = {
-  id: string;
-  name: string;
-  role: string;
-  skills: string[];
-  experience: string;
-  location: string;
-  email: string;
-  status: string;
-};
-
-const STATUS_FILTERS = [
-  "All",
-  "Available",
-  "Open to Work",
-  "Not Available",
-] as const;
-
-type FilterKey = (typeof STATUS_FILTERS)[number];
+const brandBlue = "#1C388E";
 
 const Dashboard = () => {
-  const [selectedTab, setSelectedTab] = useState<(typeof options)[number]>("saved");
-  const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<FilterKey>("All");
-
-  const candidates: Candidate[] = candidatesData.candidates;
-  const filtered = useMemo(() => {
-    const term = search.toLowerCase();
-
-    return candidates.filter((c) => {
-      const matchesSearch =
-        c.name.toLowerCase().includes(term) ||
-        c.role.toLowerCase().includes(term) ||
-        c.email.toLowerCase().includes(term) ||
-        c.skills.some((s) => s.toLowerCase().includes(term));
-
-      const matchesFilter = filter === "All" || c.status === filter;
-
-      return matchesSearch && matchesFilter;
-    });
-  }, [search, filter]);
+  // Graph Data (Applicants over 7 days)
+  const graphData = [14, 22, 18, 30, 25, 17, 28]; // dynamic-friendly
+  const maxValue = Math.max(...graphData);
 
   return (
-    <ScrollView className="flex-1 px-5 py-4 bg-gray-50">
-      <Text className="text-gray-500 mb-6">
-        Overview of your recruitment activities and performance metrics
-      </Text>
-
-      {/* TOP CARDS */}
-      <View className="flex-row flex-wrap justify-between mb-6">
-        <MetricCard label="Active Job Posts" value="12" icon="briefcase-outline" trend="+2 this month" />
-        <MetricCard label="Total Applicants" value="247" icon="people-outline" trend="+18% this week" />
-        <MetricCard label="Profile Views" value="1,834" icon="eye-outline" trend="+12% this month" />
-        <MetricCard label="Success Rate" value="68%" icon="trending-up-outline" trend="+5% from last month" />
+    <ScrollView className="flex-1 px-5 py-4 bg-gray-50" showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 20 }}>
+      {/* Header */}
+      <View className="mb-6">
+        <Text className="text-2xl font-bold text-gray-900">Dashboard</Text>
+        <Text className="text-gray-500 mt-1">
+          Insights tailored to your hiring strategy.
+        </Text>
       </View>
 
-      {/* ⬇️ YOUR REUSABLE TABS HERE */}
-      <SegmentTabs
-        options={options}
-        labels={labels}
-        selected={selectedTab}
-        setSelected={setSelectedTab}
+      {/* Metrics */}
+      <View className="flex-row flex-wrap justify-between mb-4">
+        <MetricCard
+          label="Active Posts"
+          value="12"
+          trend="+3 this week"
+          icon="briefcase-outline"
+        />
+        <MetricCard
+          label="Applicants Today"
+          value="18"
+          trend="+7 since yesterday"
+          icon="people-outline"
+        />
+        <MetricCard
+          label="Shortlisted"
+          value="9"
+          trend="+2 this week"
+          icon="checkmark-done-outline"
+        />
+        <MetricCard
+          label="Interviews"
+          value="5"
+          trend="Scheduled"
+          icon="calendar-outline"
+        />
+      </View>
+
+      {/* GRAPH — REAL BAR CHART */}
+      <View className="bg-white rounded-2xl p-5 shadow-sm mb-8">
+        <Text className="text-lg font-semibold text-gray-900 mb-1">
+          Applicant Activity (7 days)
+        </Text>
+        <Text className="text-gray-500 mb-4">
+          Monitor daily applicant trends
+        </Text>
+
+        <View className="flex-row items-end justify-between h-32">
+          {graphData.map((value, index) => {
+            const heightPercent = (value / maxValue) * 100;
+
+            return (
+              <View
+                key={index}
+                className="items-center justify-end mt-8"
+                style={{ width: "10%" }}
+              >
+                <View
+                  style={{
+                    height: `${heightPercent}%`,
+                    backgroundColor: brandBlue,
+                    width: 12,
+                    borderRadius: 6,
+                  }}
+                  className="justify-end"
+                />
+                <Text className="text-gray-500 text-sm mt-2">
+                  {["M", "T", "W", "T", "F", "S", "S"][index]}
+                </Text>
+              </View>
+            );
+          })}
+        </View>
+      </View>
+
+      {/* Suggested Candidates */}
+      <View className="flex-row items-center justify-between mb-3">
+        <Text className="text-lg font-semibold text-gray-900">
+          Top Candidate Matches
+        </Text>
+        <Ionicons name="chevron-forward" size={20} color="#6b7280" />
+      </View>
+
+      {/* MULTIPLE CANDIDATES INLINE */}
+      <CandidateItem
+        initials="JM"
+        name="John Mark Santos"
+        role="Frontend Developer"
+        savedAgo="2d ago"
+        experience="3+ years in React, TypeScript, and Expo. Previously built internal dashboards and mobile apps for SMEs."
+        strengths={[
+          "Clean scalable code",
+          "Strong communication",
+          "Pixel-perfect UI work",
+          "Rapid debugging and issue resolution",
+        ]}
+        skills={["React", "TypeScript", "Figma", "REST APIs", "Next.js"]}
+        match={82}
       />
 
-      {/* CANDIDATE LIST */}
-      {filtered.map((item) => (
-        <CandidateCard key={item.id} item={item} />
-      ))}
+      <CandidateItem
+        initials="AL"
+        name="Anna Lopez"
+        role="UI/UX Designer"
+        savedAgo="3d ago"
+        experience="4 years designing mobile-first apps. Skilled at wireframes, user flows, and high-fidelity screens."
+        strengths={[
+          "User-centered thinking",
+          "Fast prototyping",
+          "Excellent typography choices",
+        ]}
+        skills={["Figma", "Prototyping", "UX Writing", "Design Systems"]}
+        match={74}
+      />
 
-      {selectedTab === "selected" && (
-        <Text className="text-gray-400 text-center mt-6">No selected candidates yet.</Text>
-      )}
+      <CandidateItem
+        initials="RB"
+        name="Rico Benitez"
+        role="Backend Developer"
+        savedAgo="1d ago"
+        experience="5 years building scalable backend systems. Experience in Node, Express, PostgreSQL."
+        strengths={[
+          "System architecture",
+          "Database optimization",
+          "API security",
+        ]}
+        skills={["Node.js", "PostgreSQL", "Docker", "Redis"]}
+        match={69}
+      />
 
-      {selectedTab === "pending" && (
-        <Text className="text-gray-400 text-center mt-6">No pending reviews.</Text>
-      )}
-
-      {selectedTab === "archived" && (
-        <Text className="text-gray-400 text-center mt-6">No archived profiles.</Text>
-      )}
+      {/* Footer spacing */}
+      <View className="h-16" />
     </ScrollView>
   );
 };

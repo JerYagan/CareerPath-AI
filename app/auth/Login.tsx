@@ -1,4 +1,4 @@
-import { Text, View, TextInput, TouchableOpacity } from "react-native";
+import { Text, View, TextInput, TouchableOpacity, Image } from "react-native";
 import { useState } from "react";
 import { useRouter } from "expo-router";
 import Animated, {
@@ -14,21 +14,11 @@ import CustomButton from "@/components/ui/CustomButton";
 const Login = () => {
   const router = useRouter();
 
-  const [email, setEmail] = useState("john@example.com");
+  const [email, setEmail] = useState("hr@techcorp.com");
   const [password, setPassword] = useState("123456");
-  const [contactEmail, setContactEmail] = useState("hr@techcorp.com");
-  const [selected, setSelected] = useState<"jobSeeker" | "employer">(
-    "jobSeeker"
-  );
+  const [error, setError] = useState("");
 
   const position = useSharedValue(0);
-
-  const handleToggle = (role: "jobSeeker" | "employer") => {
-    setSelected(role);
-    position.value = withTiming(role === "jobSeeker" ? 0 : 1, {
-      duration: 250,
-    });
-  };
 
   const animatedHighlight = useAnimatedStyle(() => ({
     transform: [{ translateX: withTiming(position.value * 160) }],
@@ -45,143 +35,87 @@ const Login = () => {
   }));
 
   const handleLogin = () => {
-    if (selected === "jobSeeker") {
-      // JOB SEEKER LOGIN
-      const user = users.find(
-        (u) => u.email === email.trim() && u.password === password
-      );
+    const trimmedEmail = email.trim();
+    const trimmedPass = password.trim();
 
-      if (user) {
-        router.replace("../loading");
-        return;
-      }
+    setError("");
 
-      alert("Invalid job seeker email or password.");
-    } else {
-      // EMPLOYER LOGIN
-      const employer = employerAccounts.employers.find(
-        (e) => e.email === contactEmail.trim() && e.password === password.trim()
-      );
+    const jobSeeker = users.find(
+      (u) => u.email === trimmedEmail && u.password === trimmedPass
+    );
 
-      if (employer) {
-        router.replace("/employer/Dashboard");
-        return;
-      }
-
-      alert("Invalid employer email or password.");
+    if (jobSeeker) {
+      console.log("Logged in as job seeker:", jobSeeker.email);
+      router.replace("/jobseeker/Home");
+      return;
     }
+
+    const employer = employerAccounts.employers.find(
+      (e) => e.email === trimmedEmail && e.password === trimmedPass
+    );
+
+    if (employer) {
+      console.log("Logged in as employer:", employer.email);
+      router.replace("/employer/Dashboard");
+      return;
+    }
+
+    setError("Invalid email or password.");
   };
 
   return (
     <View className="flex-1 justify-center">
       <View className="mx-4 p-8 flex justify-center bg-white border border-gray-300 rounded-lg overflow-hidden">
-        <View className="mb-10 text-center">
-          <Text className="text-2xl font-semibold text-center">
+        <View className="items-center mb-10">
+          <Image
+            source={require("@/assets/images/peso-logo.png")} // place your logo here
+            className="w-20 h-20 mb-3"
+            resizeMode="contain"
+          />
+
+          <Text className="text-2xl font-bold text-[#1C388E]">
+            PESO Jobs PH
+          </Text>
+
+          <Text className="text-lg font-semibold mt-2 text-gray-800">
             Welcome Back!
           </Text>
+
           <Text className="text-gray-500 text-center">
             Sign in to your account to continue
           </Text>
         </View>
 
-        {/* Animated Toggle */}
-        <View className="relative flex-row bg-gray-100 rounded-lg mb-8 border border-gray-300 overflow-hidden">
-          <Animated.View
-            className="absolute top-0 left-0 w-1/2 h-full bg-white rounded-lg"
-            style={animatedHighlight}
+        <View>
+          <Text className="font-bold mb-2">Email</Text>
+          <TextInput
+            value={email}
+            onChangeText={setEmail}
+            autoCapitalize="none"
+            autoCorrect={false}
+            placeholder="Enter your email"
+            className="bg-gray-100 p-4 rounded-lg text-gray-600 mb-4"
           />
-
-          <TouchableOpacity
-            className="w-1/2 p-4 rounded-lg z-10"
-            onPress={() => handleToggle("jobSeeker")}
-            activeOpacity={0.8}
-          >
-            <Animated.Text
-              style={animatedJobSeekerText}
-              className={`text-center font-bold ${
-                selected === "jobSeeker" ? "text-black" : "text-gray-500"
-              }`}
-            >
-              Job Seeker
-            </Animated.Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            className="w-1/2 p-4 rounded-lg z-10"
-            onPress={() => handleToggle("employer")}
-            activeOpacity={0.8}
-          >
-            <Animated.Text
-              style={animatedEmployerText}
-              className={`text-center font-bold ${
-                selected === "employer" ? "text-black" : "text-gray-500"
-              }`}
-            >
-              Employer
-            </Animated.Text>
-          </TouchableOpacity>
         </View>
 
-        {/* Conditional Fields */}
-        {selected === "jobSeeker" ? (
-          <>
-            <View>
-              <Text className="font-bold mb-2">Email</Text>
-              <TextInput
-                value={email}
-                onChangeText={setEmail}
-                autoCapitalize="none"
-                autoCorrect={false}
-                placeholder="Enter your email"
-                className="bg-gray-100 p-4 rounded-lg text-gray-600 mb-4"
-              />
-            </View>
-
-            <View className="mb-6">
-              <Text className="font-bold mb-2">Password</Text>
-              <TextInput
-                value={password}
-                onChangeText={setPassword}
-                autoCapitalize="none"
-                autoCorrect={false}
-                placeholder="Enter your password"
-                className="bg-gray-100 p-4 rounded-lg text-gray-600 mb-4"
-                secureTextEntry
-              />
-            </View>
-          </>
-        ) : (
-          <>
-            <View>
-              <Text className="font-bold mb-2">Contact Email</Text>
-              <TextInput
-                value={contactEmail}
-                onChangeText={setContactEmail}
-                autoCapitalize="none"
-                autoCorrect={false}
-                placeholder="Enter your contact email"
-                className="bg-gray-100 p-4 rounded-lg text-gray-600 mb-4"
-              />
-            </View>
-
-            <View className="mb-6">
-              <Text className="font-bold mb-2">Password</Text>
-              <TextInput
-                value={password}
-                onChangeText={setPassword}
-                placeholder="Enter your password"
-                className="bg-gray-100 p-4 rounded-lg text-gray-600 mb-4"
-                secureTextEntry
-              />
-            </View>
-          </>
-        )}
+        <View className="mb-6">
+          <Text className="font-bold mb-2">Password</Text>
+          <TextInput
+            value={password}
+            onChangeText={setPassword}
+            autoCapitalize="none"
+            autoCorrect={false}
+            placeholder="Enter your password"
+            className="bg-gray-100 p-4 rounded-lg text-gray-600 mb-4"
+            secureTextEntry
+          />
+        </View>
 
         {/* Sign In */}
         <CustomButton
           title="Sign In"
           onPress={handleLogin}
-          className="bg-black"
+          className="bg-brandBlue"
           textClassName="text-white"
         />
 
@@ -205,8 +139,8 @@ const Login = () => {
           <Text className="text-gray-500 text-center">
             Don't have an account?{" "}
             <Text
-              onPress={() => router.push("/auth/Register")}
-              className="font-bold text-blue-400"
+              onPress={() => router.push("/auth/ChooseAccountType")}
+              className="font-bold text-brandBlue"
             >
               Sign up
             </Text>

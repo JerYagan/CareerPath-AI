@@ -11,7 +11,7 @@ type Props = {
 export default function ChatHeader({ chat, onBack, onOptions }: Props) {
   return (
     <View className="flex-row items-center justify-between px-4 py-6 border-b border-gray-200">
-      <TouchableOpacity onPress={onBack}>
+      <TouchableOpacity onPress={onBack} className="px-2">
         <Ionicons name="arrow-back" size={24} color="black" />
       </TouchableOpacity>
 
@@ -39,7 +39,7 @@ export default function ChatHeader({ chat, onBack, onOptions }: Props) {
         </Text>
       </View>
 
-      <TouchableOpacity onPress={onOptions}>
+      <TouchableOpacity onPress={onOptions} className="px-2">
         <Entypo name="dots-three-vertical" size={20} color="black" />
       </TouchableOpacity>
     </View>

@@ -47,6 +47,9 @@ export interface ProfileBase {
 
   overview: string;
 
+  company?: string | null;
+  openToWork?: boolean;
+
   experience: Experience[];
   skills: Skill[];
   roadmap: RoadmapGoal[];

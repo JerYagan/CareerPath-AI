@@ -57,7 +57,7 @@ const PostActions = ({
         <Ionicons
           name={post.isSaved ? "bookmark" : "bookmark-outline"}
           size={28}
-          color={post.isSaved ? "#2563eb" : "#555"}
+          color={post.isSaved ? "#1C388E" : "#555"}
         />
         <Text className="text-gray-800 text-base">
           {post.isSaved ? 1 : 0}

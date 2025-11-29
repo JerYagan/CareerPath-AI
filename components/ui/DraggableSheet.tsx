@@ -10,7 +10,7 @@ import {
 export type DraggableSheetProps = {
   visible: boolean;
   onClose: () => void;
-  height?: "full" | "half";
+  height?: "full" | "half" | "large";
   children?: React.ReactNode;
 };
 
@@ -20,7 +20,10 @@ const DraggableSheet: React.FC<DraggableSheetProps> = ({
   height = "full",
   children,
 }) => {
-  const startY = height === "half" ? 500 : 900;
+  let startY = 900;
+
+  if (height === "half") startY = 500;
+  if (height === "large") startY = 300;
 
   const translateY = useRef(new Animated.Value(startY)).current;
   const [mounted, setMounted] = useState(false);
@@ -90,9 +93,11 @@ const DraggableSheet: React.FC<DraggableSheetProps> = ({
       <Animated.View
         {...panResponder.panHandlers}
         style={{ transform: [{ translateY }] }}
-        className={`absolute left-0 right-0 bottom-0 bg-white rounded-t-3xl p-5 ${
-          height === "half" ? "h-1/2" : "h-full"
-        }`}
+        className={`absolute left-0 right-0 bottom-0 bg-white rounded-t-3xl p-5
+          ${height === "half" ? "h-1/2" : ""}
+          ${height === "full" ? "h-full" : ""}
+          ${height === "large" ? "h-[80%]" : ""}
+        `}
       >
         <View className="w-12 h-1.5 bg-gray-300 rounded-full self-center mb-4" />
         {children}

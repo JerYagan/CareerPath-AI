@@ -14,7 +14,7 @@ const MetricCard = ({ label, value, icon, trend }: MetricCardProps) => {
     <View className="w-[48%] bg-white rounded-xl p-4 mb-3 shadow-sm">
       <View className="flex-row justify-between items-center mb-2">
         <Text className="text-gray-500">{label}</Text>
-        <Ionicons name={icon as any} size={22} color="#2563eb" />
+        <Ionicons name={icon as any} size={22} color="#1C388E" />
       </View>
 
       <Text className="text-2xl font-bold text-gray-900">{value}</Text>

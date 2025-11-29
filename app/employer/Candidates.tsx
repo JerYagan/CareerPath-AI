@@ -1,123 +1,141 @@
 import React, { useState, useMemo } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
-import { useRouter, router } from "expo-router";
+import { View, Text, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+
+import SearchBar from "@/components/ui/SearchBar";
+import FilterSheet from "@/components/features/employer/candidates/FilterSheet";
 import CandidateCard from "@/components/features/employer/candidates/CandidateCard";
-import candidatesData from "@/assets/data/employerData/candidates.json";
+import CandidateProfileSheet from "@/components/features/employer/candidates/CandidateProfileSheet";
 
-type Candidate = {
-  id: string;
-  name: string;
-  role: string;
-  skills: string[];
-  experience: string;
-  location: string;
-  email: string;
-  status: string;
-};
+const brandBlue = "#1C388E";
 
-const STATUS_FILTERS = [
-  "All",
-  "Available",
-  "Open to Work",
-  "Not Available",
-] as const;
+const CANDIDATES = [
+  {
+    id: "c1",
+    name: "John Mark Santos",
+    initials: "JM",
+    role: "Frontend Developer",
+    experience: 3,
+    province: "Metro Manila",
+    city: "Quezon City",
+    education: "Bachelor's",
+    bio: "Frontend developer specializing in React, UI engineering, and design systems.",
+    email: "john@example.com",
+    phone: "09123456789",
+    preferredRoles: ["Frontend Developer", "UI Engineer"],
+    skills: ["React", "TypeScript", "Tailwind", "UI/UX", "Next.js"],
+    match: 82,
+    status: "Available",
+    links: [
+      { label: "Portfolio", url: "https://example.com" },
+      { label: "Resume", url: "https://example.com/resume.pdf" },
+    ],
+  },
+  {
+    id: "c2",
+    initials: "AL",
+    name: "Anna Lopez",
+    role: "UI/UX Designer",
+    experience: 4,
+    province: "Metro Manila",
+    city: "Makati",
+    education: "Bachelor's",
+    bio: "Product designer focused on user research and high-fidelity prototyping.",
+    email: "anna@example.com",
+    phone: "09124567890",
+    preferredRoles: ["Product Designer", "UX Researcher"],
+    skills: ["Figma", "UX Research", "High Fidelity", "Prototyping"],
+    match: 74,
+    status: "Open to Work",
+    links: [{ label: "Portfolio", url: "https://dribbble.com" }],
+  },
+];
 
-type FilterKey = (typeof STATUS_FILTERS)[number];
-
-const Candidates = () => {
+export default function Candidates() {
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<FilterKey>("All");
 
-  const candidates: Candidate[] = candidatesData.candidates;
+  const [filterVisible, setFilterVisible] = useState(false);
+
+  const [status, setStatus] = useState<string[]>([]);
+  const [experience, setExperience] = useState<string[]>([]);
+  const [skills, setSkills] = useState<string[]>([]);
+  const [education, setEducation] = useState<string[]>([]);
+  const [provinces, setProvinces] = useState<string[]>([]);
+  const [cities, setCities] = useState<string[]>([]);
+
+  const [profileVisible, setProfileVisible] = useState(false);
+  const [selectedCandidate, setSelectedCandidate] = useState<any>(null);
 
   const filtered = useMemo(() => {
     const term = search.toLowerCase();
-
-    return candidates.filter((c) => {
+    return CANDIDATES.filter((c) => {
       const matchesSearch =
         c.name.toLowerCase().includes(term) ||
         c.role.toLowerCase().includes(term) ||
-        c.email.toLowerCase().includes(term) ||
         c.skills.some((s) => s.toLowerCase().includes(term));
 
-      const matchesFilter = filter === "All" || c.status === filter;
-
-      return matchesSearch && matchesFilter;
+      return matchesSearch;
     });
-  }, [search, filter]);
+  }, [search]);
+
+  const resetFilters = () => {
+    setStatus([]);
+    setExperience([]);
+    setSkills([]);
+    setEducation([]);
+    setProvinces([]);
+    setCities([]);
+  };
 
   return (
-    <ScrollView className="flex-1 px-5 py-4 bg-gray-50">
-      <Text className="text-gray-500 mb-4">
-        Discover and connect with potential talent.
-      </Text>
-
-      {/* Search Bar */}
-      <View className="flex-row items-center bg-white rounded-full px-4 py-2 mb-3 shadow-sm">
-        <Ionicons name="search-outline" size={20} color="#9ca3af" />
-        <TextInput
-          className="flex-1 ml-2 text-gray-900"
-          placeholder="Search name, skills, or role"
-          placeholderTextColor="#9ca3af"
+    <>
+      <ScrollView className="flex-1 px-5 py-4 bg-gray-50">
+        <SearchBar
           value={search}
-          onChangeText={setSearch}
+          onChange={setSearch}
+          showFilter
+          onFilterPress={() => setFilterVisible(true)}
+          placeholder="Search candidates..."
         />
-      </View>
 
-      {/* Status Filters */}
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-4">
-        <View className="flex-row">
-          {STATUS_FILTERS.map((status) => {
-            const isActive = filter === status;
-            return (
-              <TouchableOpacity
-                key={status}
-                onPress={() => setFilter(status)}
-                className={`px-4 py-2 rounded-full mr-2 border ${
-                  isActive
-                    ? "bg-blue-600 border-blue-600"
-                    : "bg-white border-gray-200"
-                }`}
-              >
-                <Text
-                  className={`font-medium ${
-                    isActive ? "text-white" : "text-gray-700"
-                  }`}
-                >
-                  {status}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
-        </View>
+        {filtered.map((candidate) => (
+          <CandidateCard
+            key={candidate.id}
+            candidate={candidate}
+            onViewProfile={() => {
+              setSelectedCandidate(candidate);
+              setProfileVisible(true);
+            }}
+          />
+        ))}
       </ScrollView>
 
-      {/* Candidate List */}
-      {filtered.map((item) => (
-        <CandidateCard key={item.id} item={item} />
-      ))}
+      {/* Filter */}
+      <FilterSheet
+        visible={filterVisible}
+        onClose={() => setFilterVisible(false)}
+        status={status}
+        setStatus={setStatus}
+        experience={experience}
+        setExperience={setExperience}
+        skills={skills}
+        setSkills={setSkills}
+        education={education}
+        setEducation={setEducation}
+        provinces={provinces}
+        setProvinces={setProvinces}
+        cities={cities}
+        setCities={setCities}
+        onApply={() => setFilterVisible(false)}
+        onReset={resetFilters}
+      />
 
-      {/* Empty */}
-      {filtered.length === 0 && (
-        <View className="mt-10 items-center">
-          <Ionicons name="people-outline" size={40} color="#9ca3af" />
-          <Text className="mt-3 font-semibold text-gray-700">
-            No candidates found
-          </Text>
-          <Text className="text-gray-500 mt-1 text-center">
-            Try adjusting your search or filters.
-          </Text>
-        </View>
-      )}
-    </ScrollView>
+      {/* Profile */}
+      <CandidateProfileSheet
+        visible={profileVisible}
+        onClose={() => setProfileVisible(false)}
+        candidate={selectedCandidate}
+      />
+    </>
   );
-};
-
-export default Candidates;
+}

@@ -3,6 +3,7 @@ import { View, Text, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import DraggableSheet from "@/components/ui/DraggableSheet";
 import CustomButton from "@/components/ui/CustomButton";
+import SkillsPreview from "@/components/ui/SkillsPreview";
 import { Job } from "@/types/job";
 
 type Props = {
@@ -15,15 +16,13 @@ const JobApplySheet: React.FC<Props> = ({ visible, onClose, job }) => {
   if (!job) return null;
 
   return (
-    <DraggableSheet visible={visible} onClose={onClose} height="full">
+    <DraggableSheet visible={visible} onClose={onClose} height="large">
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Job Header */}
         <View className="mb-4">
           <Text className="text-2xl font-bold">{job.title}</Text>
           <Text className="text-gray-600">{job.company}</Text>
         </View>
 
-        {/* Quick Info */}
         <View className="flex-row items-center gap-2 mb-2">
           <Ionicons name="location-outline" size={18} />
           <Text className="text-gray-700">{job.location}</Text>
@@ -34,15 +33,34 @@ const JobApplySheet: React.FC<Props> = ({ visible, onClose, job }) => {
           <Text className="text-gray-700">{job.salary}</Text>
         </View>
 
-        <View className="flex-row items-center gap-2 mb-6">
+        <View className="flex-row items-center gap-2 mb-4">
           <Ionicons name="briefcase-outline" size={18} />
           <Text className="text-gray-700">{job.type}</Text>
         </View>
 
-        {/* Description */}
         <Text className="text-gray-600 mb-4">{job.description}</Text>
 
-        {/* Buttons */}
+        {job.skills?.length > 0 && (
+          <View className="mb-6">
+            <Text className="font-semibold mb-2 text-gray-800">
+              Required Skills
+            </Text>
+
+            <View className="flex-row flex-wrap gap-2">
+              {job.skills.map((skill, index) => (
+                <View
+                  key={index}
+                  className="px-3 py-2 bg-gray-200 rounded-lg"
+                >
+                  <Text className="text-gray-600 font-semibold">
+                    {skill}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          </View>
+        )}
+
         <View className="mt-4 gap-3">
           <CustomButton
             title="Apply"

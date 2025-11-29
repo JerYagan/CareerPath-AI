@@ -50,7 +50,7 @@ const SearchBar = ({
 
         <CustomButton
           title="Search"
-          className="bg-indigo-600 flex-1"
+          className="bg-brandBlue flex-1"
           textClassName="text-white"
           onPress={onSearch}
         />

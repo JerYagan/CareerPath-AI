@@ -6,85 +6,117 @@ import {
   PanResponder,
   TouchableWithoutFeedback,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const DraggableSheet = ({
+type SheetSize = "full" | "large" | "half";
+
+type Props = {
+  visible: boolean;
+  onClose: () => void;
+  height?: SheetSize;
+  children: React.ReactNode;
+};
+
+const DraggableSheet: React.FC<Props> = ({
   visible,
   onClose,
   height = "full",
   children,
-}: {
-  visible: boolean;
-  onClose: () => void;
-  height?: "full" | "half";
-  children: React.ReactNode;
 }) => {
-  const startY = height === "half" ? 500 : 800;
-  const translateY = useRef(new Animated.Value(startY)).current;
+  const insets = useSafeAreaInsets();
+
+  // HEIGHT MAP
+  const HEIGHT_MAP: Record<SheetSize, `${number}%`> = {
+    full: "100%",
+    large: "80%",
+    half: "50%",
+  };
+  
+  const START_MAP = {
+    full: 1000,
+    large: 900,
+    half: 600,
+  };
+
+  const translateY = useRef(new Animated.Value(START_MAP[height])).current;
+  const overlayOpacity = useRef(new Animated.Value(0)).current;
+
   const [mounted, setMounted] = useState(false);
 
-  // Prevent instant pop (VERY IMPORTANT FIX)
+  // OPEN / CLOSE animations
   useEffect(() => {
     if (visible) {
-      setMounted(true); // mount sheet BEFORE animating
+      setMounted(true);
 
-      // ensure translateY starts offscreen
-      translateY.setValue(startY);
+      translateY.setValue(START_MAP[height]);
+      overlayOpacity.setValue(0);
 
       requestAnimationFrame(() => {
-        Animated.timing(translateY, {
-          toValue: 0,
-          duration: 280,
-          easing: (t) => 1 - Math.pow(1 - t, 3),
-          useNativeDriver: true,
-        }).start();
+        Animated.parallel([
+          Animated.timing(translateY, {
+            toValue: 0,
+            duration: 260,
+            useNativeDriver: true,
+          }),
+          Animated.timing(overlayOpacity, {
+            toValue: 0.5,
+            duration: 260,
+            useNativeDriver: true,
+          }),
+        ]).start();
       });
     } else {
-      // animate down THEN unmount
-      Animated.timing(translateY, {
-        toValue: startY,
-        duration: 240,
-        easing: (t) => Math.pow(t, 3),
-        useNativeDriver: true,
-      }).start(() => setMounted(false));
+      Animated.parallel([
+        Animated.timing(translateY, {
+          toValue: START_MAP[height],
+          duration: 220,
+          useNativeDriver: true,
+        }),
+        Animated.timing(overlayOpacity, {
+          toValue: 0,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+      ]).start(() => setMounted(false));
     }
   }, [visible]);
 
   const closeSheet = () => {
-    Animated.timing(translateY, {
-      toValue: startY,
-      duration: 240,
-      useNativeDriver: true,
-    }).start(onClose);
+    Animated.parallel([
+      Animated.timing(translateY, {
+        toValue: START_MAP[height],
+        duration: 220,
+        useNativeDriver: true,
+      }),
+      Animated.timing(overlayOpacity, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+    ]).start(onClose);
   };
 
-  // FULL-SHEET PanResponder FIX
+  // DRAG gesture
   const panResponder = useRef(
     PanResponder.create({
-      // this makes it draggable ANYWHERE
       onStartShouldSetPanResponder: () => true,
-
-      onMoveShouldSetPanResponder: (_, g) => {
-        return Math.abs(g.dy) > 3; // tiny movement triggers drag
-      },
+      onMoveShouldSetPanResponder: (_, g) => Math.abs(g.dy) > 3,
 
       onPanResponderMove: (_, g) => {
         if (g.dy > 0) translateY.setValue(g.dy);
       },
 
       onPanResponderRelease: (_, g) => {
-        if (g.dy > 140 || g.vy > 0.6) {
+        if (g.dy > 120 || g.vy > 0.6) {
           closeSheet();
         } else {
           Animated.timing(translateY, {
             toValue: 0,
-            duration: 160,
+            duration: 180,
             useNativeDriver: true,
           }).start();
         }
       },
-
-      // prevents children from stealing gestures
-      onPanResponderTerminationRequest: () => false,
     })
   ).current;
 
@@ -92,19 +124,24 @@ const DraggableSheet = ({
 
   return (
     <Modal visible transparent animationType="none" onRequestClose={closeSheet}>
-      {/* tap outside */}
+      {/* Dimmed Background */}
       <TouchableWithoutFeedback onPress={closeSheet}>
-        <View className="flex-1" />
+        <Animated.View
+          className="absolute inset-0 bg-black"
+          style={{ opacity: overlayOpacity }}
+        />
       </TouchableWithoutFeedback>
 
+      {/* Sheet */}
       <Animated.View
         {...panResponder.panHandlers}
-        style={{ transform: [{ translateY }] }}
-        className={`bg-white rounded-t-3xl px-5 pt-3 ${
-          height === "half" ? "h-1/2" : "h-full"
-        }`}
-        
+        style={{
+          transform: [{ translateY }],
+          height: HEIGHT_MAP[height] as `${number}%`,
+        }}
+        className="absolute left-0 right-0 bottom-0 bg-white rounded-t-3xl p-5"
       >
+        {/* Grabber */}
         <View className="w-14 h-1.5 bg-gray-300 rounded-full self-center mb-4" />
 
         {children}

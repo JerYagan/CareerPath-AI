@@ -11,38 +11,48 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter, usePathname } from "expo-router";
-import profileData from "@/assets/data/profile.json";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
-const NAV_ITEMS = [
-  { label: "Home", icon: "home-outline", route: "/jobseeker/Home" },
-  { label: "Activity", icon: "time-outline", route: "/jobseeker/Activity" },
-  { label: "Chats", icon: "chatbubble-outline", route: "/jobseeker/Chats" },
-  {
-    label: "Companies",
-    icon: "business-outline",
-    route: "/jobseeker/Companies",
-  },
-  { label: "Career", icon: "school-outline", route: "/jobseeker/Career" },
-  { label: "Profile", icon: "person-outline", route: "/jobseeker/Profile" },
-  { label: "Settings", icon: "settings-outline", route: "/Settings" },
-] as const;
+import profileData from "@/assets/data/profile.json";
+import type { Href } from "expo-router";
 
 type SidebarProps = {
   visible: boolean;
   onClose: () => void;
+  role: "jobseeker" | "employer";
 };
 
-const Sidebar = ({ visible, onClose }: SidebarProps) => {
+const JOBSEEKER_NAV = [
+  { label: "Home", icon: "home-outline", route: "/jobseeker/Home" },
+  { label: "Activity", icon: "time-outline", route: "/jobseeker/Activity" },
+  { label: "Chats", icon: "chatbubble-outline", route: "/jobseeker/Chats" },
+  { label: "Companies", icon: "business-outline", route: "/jobseeker/Companies" },
+  { label: "Career", icon: "school-outline", route: "/jobseeker/Career" },
+  { label: "Profile", icon: "person-outline", route: "/jobseeker/Profile" },
+  { label: "Settings", icon: "settings-outline", route: "/Settings" },
+];
+
+const EMPLOYER_NAV = [
+  { label: "Dashboard", icon: "grid-outline", route: "/employer/Dashboard" },
+  { label: "Job Posts", icon: "briefcase-outline", route: "/employer/Jobs" },
+  { label: "Applications", icon: "layers-outline", route: "/employer/Applications" },
+  { label: "Chat", icon: "chatbubble-outline", route: "/employer/Chat" },
+  { label: "Profile", icon: "business-outline", route: "/employer/Profile" },
+  { label: "Settings", icon: "settings-outline", route: "/Settings" },
+];
+
+export default function SharedSidebar({ visible, onClose, role }: SidebarProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const screenWidth = Dimensions.get("window").width;
-  const sidebarWidth = screenWidth * 0.8;
-  const slideAnim = useRef(new Animated.Value(-sidebarWidth)).current;
-  const overlayOpacity = useRef(new Animated.Value(0)).current;
   const insets = useSafeAreaInsets();
 
-  // open / close animation only (no drag)
+  const screenWidth = Dimensions.get("window").width;
+  const sidebarWidth = screenWidth * 0.8;
+
+  const slideAnim = useRef(new Animated.Value(-sidebarWidth)).current;
+  const overlayOpacity = useRef(new Animated.Value(0)).current;
+
+  const NAV_ITEMS = role === "jobseeker" ? JOBSEEKER_NAV : EMPLOYER_NAV;
+
   useEffect(() => {
     Animated.parallel([
       Animated.timing(slideAnim, {
@@ -56,7 +66,7 @@ const Sidebar = ({ visible, onClose }: SidebarProps) => {
         useNativeDriver: true,
       }),
     ]).start();
-  }, [visible, sidebarWidth, slideAnim, overlayOpacity]);
+  }, [visible]);
 
   return (
     <>
@@ -83,105 +93,62 @@ const Sidebar = ({ visible, onClose }: SidebarProps) => {
           position: "absolute",
           top: insets.top,
           bottom: insets.bottom,
-          left: 0,
           width: sidebarWidth,
           backgroundColor: "white",
           transform: [{ translateX: slideAnim }],
           zIndex: 10,
         }}
       >
-        <ScrollView
-          contentContainerStyle={{
-            paddingTop: 20,
-            paddingBottom: 24,
-          }}
-        >
-          {/* Top bar */}
+        <ScrollView contentContainerStyle={{ paddingTop: 20, paddingBottom: 24 }}>
+          {/* Header button */}
           <View className="flex-row justify-between items-center mb-6 px-6">
             <TouchableOpacity onPress={onClose}>
               <Ionicons name="menu-outline" size={28} color="#2563eb" />
             </TouchableOpacity>
           </View>
 
-          {/* User Profile */}
-          <View className="mb-8">
-            <View className="flex-row items-center mb-4 px-6">
-              <Image
-                source={{ uri: profileData.profilePicture }}
-                className="w-14 h-14 rounded-full mr-4"
-              />
-              <View className="flex-1">
-                <Text className="text-lg font-bold text-gray-900">
-                  {profileData.name}
-                </Text>
-                <Text className="text-gray-500 text-sm">
-                  {profileData.position}
-                </Text>
-              </View>
-            </View>
+          {/* Profile Section */}
+          <View className="mb-8 px-6 items-center">
+            <Image
+              source={{ uri: "https://i.pravatar.cc/190" }}
+              className="w-24 h-24 rounded-full bg-gray-200"
+            />
 
-            {/* Additional info */}
-            <View className="space-y-1 px-6">
-              {profileData.email && (
-                <View className="flex-row items-center gap-2">
-                  <Ionicons name="mail-outline" size={16} color="#6b7280" />
-                  <Text className="text-gray-600 text-sm">
-                    {profileData.email}
-                  </Text>
-                </View>
-              )}
-              {profileData.phone && (
-                <View className="flex-row items-center gap-2">
-                  <Ionicons name="call-outline" size={16} color="#6b7280" />
-                  <Text className="text-gray-600 text-sm">
-                    {profileData.phone}
-                  </Text>
-                </View>
-              )}
-              {profileData.location && (
-                <View className="flex-row items-center gap-2">
-                  <Ionicons name="location-outline" size={16} color="#6b7280" />
-                  <Text className="text-gray-600 text-sm">
-                    {profileData.location}
-                  </Text>
-                </View>
-              )}
-            </View>
+            <Text className="text-xl font-bold text-gray-900 mt-3">
+              {profileData.name}
+            </Text>
+            <Text className="text-gray-500 font-medium mt-1">
+              {profileData.position}
+            </Text>
+
+            {/* Divider */}
+            <View className="h-px bg-gray-200 my-5 w-full" />
           </View>
 
-          {/* Navigation Items (including Settings) */}
+          {/* Navigation */}
           {NAV_ITEMS.map((item) => {
-            const isActive =
-              item.route === "/Settings"
-                ? pathname === "/Settings"
-                : pathname.startsWith(item.route);
+            const isActive = pathname.startsWith(item.route);
 
             return (
               <TouchableOpacity
                 key={item.label}
                 onPress={() => {
-                  router.push(item.route);
+                  router.push(item.route as Href);
                   onClose();
                 }}
-                activeOpacity={0.8}
                 className="relative px-6 py-4 mb-2"
               >
                 {isActive && (
-                  <>
-                    {/* Left glow bar */}
-                    <View className="absolute left-0 top-0 bottom-0 w-1.5 bg-brandBlue rounded-r-full shadow-lg" />
-
-                    {/* Background highlight */}
-                    <View className="absolute left-3 right-3 top-1 bottom-1 bg-blue-50 rounded-2xl opacity-80" />
-                  </>
+                  <View className="absolute left-0 top-0 bottom-0 w-1.5 bg-brandBlue rounded-r-full" />
                 )}
 
-                <View className="flex-row items-center gap-4 relative">
+                <View className="flex-row items-center gap-4">
                   <Ionicons
                     name={item.icon as any}
                     size={24}
                     color={isActive ? "#2563eb" : "#6b7280"}
                   />
+
                   <Text
                     className={`text-lg font-semibold ${
                       isActive ? "text-blue-700" : "text-gray-900"
@@ -197,6 +164,4 @@ const Sidebar = ({ visible, onClose }: SidebarProps) => {
       </Animated.View>
     </>
   );
-};
-
-export default Sidebar;
+}

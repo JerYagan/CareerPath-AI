@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { View, TouchableOpacity } from "react-native";
+import { Image, Text, View, TouchableOpacity } from "react-native";
 import { Tabs, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import EmployerSidebar from "@/components/features/employer/EmployerSidebar";
+import SharedSidebar from "@/components/navigation/SharedSidebar";
+import PesoLogo from "@/assets/images/peso-logo.png";
 
 const _layout = () => {
   const router = useRouter();
@@ -11,12 +13,13 @@ const _layout = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* Render Employer Sidebar */}
-      <EmployerSidebar
+      <SharedSidebar
         visible={sidebarVisible}
         onClose={() => setSidebarVisible(false)}
+        role="employer"
       />
 
+      {/* Tabs */}
       <Tabs
         screenOptions={{
           tabBarShowLabel: true,
@@ -29,11 +32,32 @@ const _layout = () => {
           },
           tabBarActiveTintColor: "#2563eb",
           tabBarInactiveTintColor: "#9ca3af",
+          headerTitleAlign: "center",
 
-          // Header Right (Bell + Hamburger)
+          // LEFT: hamburger
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => setSidebarVisible(true)}
+              className="ml-4"
+            >
+              <Ionicons name="menu-outline" size={28} color="black" />
+            </TouchableOpacity>
+          ),
+
+          // CENTER: PESO logo + text
+          headerTitle: () => (
+            <View className="flex-row items-center justify-center gap-2 mr-4">
+              <Image
+                source={PesoLogo}
+                className="w-8 h-8 object-contain"
+              />
+              <Text className="text-lg font-bold">PESO Jobs PH</Text>
+            </View>
+          ),
+
+          // RIGHT: notif bell
           headerRight: () => (
-            <View className="flex-row items-center gap-4 mr-4">
-              {/* Notifications */}
+            <View className="flex-row items-center mr-6">
               <TouchableOpacity
                 onPress={() => router.push("/Notifications")}
                 className="relative"
@@ -46,11 +70,6 @@ const _layout = () => {
                 {unreadCount > 0 && (
                   <View className="absolute -top-1 -right-1 w-3 h-3 bg-red-600 rounded-full border border-white" />
                 )}
-              </TouchableOpacity>
-
-              {/* Sidebar toggle */}
-              <TouchableOpacity onPress={() => setSidebarVisible(true)}>
-                <Ionicons name="menu-outline" size={28} color="black" />
               </TouchableOpacity>
             </View>
           ),

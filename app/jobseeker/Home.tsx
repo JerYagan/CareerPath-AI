@@ -3,14 +3,22 @@ import { ScrollView, View, Text, RefreshControl } from "react-native";
 import Search from "@/components/features/jobseeker/home/HomeSearch";
 import JobPopular from "@/components/features/jobseeker/home/JobPopular";
 import jobs from "@/assets/data/jobs.json";
-import JobCard from "@/components/features/jobseeker/home/JobCard";
-import JobApplySheet from "@/components/features/jobseeker/home/JobApplySheet";
+import SkillsModal from "@/components/ui/SkillsModal";
+import HomeCard from "@/components/features/jobseeker/home/HomeCard";
+import JobApplySheet from "@/components/ui/JobApplySheet";
+import SkillsPreview from "@/components/ui/SkillsPreview";
 import { Job } from "@/types/job";
 
 export default function Home() {
   const [refreshing, setRefreshing] = useState(false);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [sheetVisible, setSheetVisible] = useState(false);
+
+  const [skillsModalVisible, setSkillsModalVisible] = useState(false);
+  const [skillsSelected, setSkillsSelected] = useState<string[]>([]);
+
+  // Bookmark states
+  const [bookmarkedIds, setBookmarkedIds] = useState<number[]>([]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -20,6 +28,19 @@ export default function Home() {
   const openApplySheet = (job: Job) => {
     setSelectedJob(job);
     setSheetVisible(true);
+  };
+
+  const toggleBookmark = (jobId: number) => {
+    setBookmarkedIds((prev) =>
+      prev.includes(jobId)
+        ? prev.filter((id) => id !== jobId)
+        : [...prev, jobId]
+    );
+  };
+
+  const openSkills = (skills: string[]) => {
+    setSkillsSelected(skills);
+    setSkillsModalVisible(true);
   };
 
   return (
@@ -39,30 +60,40 @@ export default function Home() {
           </Text>
 
           {jobs.map((job) => (
-            <JobCard
+            <HomeCard
               key={job.id}
               job={job}
-              buttons={[
-                {
-                  title: "Apply Now",
-                  icon: "paper-plane-outline",
-                  iconColor: "white",
-                  className: "bg-brandBlue w-full flex-1 gap-2",
-                  textClassName: "text-white",
-                  onPress: () => openApplySheet(job),
-                },
-                {
-                  icon: "bookmark-outline",
-                  className: "border border-gray-300",
-                  onPress: () => console.log("Bookmark", job.title),
-                },
-              ]}
-            />
+              bookmarked={bookmarkedIds.includes(job.id)}
+              onApply={() => openApplySheet(job)}
+              onBookmark={() => toggleBookmark(job.id)}
+            >
+              {/* DESCRIPTION WITH LIMIT */}
+              <Text className="mt-6 text-gray-600" numberOfLines={5}>
+                {job.description}
+              </Text>
+
+              {/* SKILLS */}
+              {job.skills && (
+                <View className="mt-4">
+                  <SkillsPreview
+                    skills={job.skills}
+                    onPress={() => openSkills(job.skills)}
+                  />
+                </View>
+              )}
+            </HomeCard>
           ))}
         </View>
       </ScrollView>
 
-      {/* APPLY MODAL */}
+      {/* SKILLS MODAL */}
+      <SkillsModal
+        visible={skillsModalVisible}
+        onClose={() => setSkillsModalVisible(false)}
+        skills={skillsSelected}
+      />
+
+      {/* APPLY SHEET */}
       <JobApplySheet
         visible={sheetVisible}
         onClose={() => setSheetVisible(false)}

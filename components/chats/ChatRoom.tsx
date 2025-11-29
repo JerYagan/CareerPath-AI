@@ -12,6 +12,8 @@ import { castMessages, simulateReply, formatTime } from "@/helpers/chat";
 import { useChatRouteBase } from "@/helpers/chatNavigation";
 import { useLocalSearchParams, useRouter } from "expo-router";
 
+import * as DocumentPicker from "expo-document-picker";
+
 type Props = {
   chats: Chat[];
 };
@@ -96,8 +98,36 @@ export default function ChatRoom({ chats }: Props) {
           input={input}
           setInput={setInput}
           onSend={onSend}
-          onAttach={() => {
-            // TODO: open attachment picker here later
+          onAttach={async () => {
+            try {
+              const result = await DocumentPicker.getDocumentAsync({
+                multiple: false,
+                copyToCacheDirectory: true,
+              });
+
+              if (result.canceled || !result.assets?.length) return;
+
+              const file = result.assets[0];
+
+              const newMsg: Message = {
+                id: Date.now(),
+                text: `📎 Attached: ${file.name ?? "Unnamed file"}`,
+                sender: "me",
+                time: formatTime(new Date()),
+                read: false,
+                attachment: {
+                  uri: file.uri,
+                  name: file.name ?? "Untitled",
+                  mimeType: file.mimeType ?? "",
+                },
+              };
+
+              setMessages((prev) => [...prev, newMsg]);
+
+              setTimeout(() => flatListRef.current?.scrollToEnd({ animated: true }), 50);
+            } catch (err) {
+              console.log("Attachment error:", err);
+            }
           }}
         />
       </KeyboardAvoidingView>

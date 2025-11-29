@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import { Tabs, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import Sidebar from "@/components/navigation/Sidebar";
+import SharedSidebar from "@/components/navigation/SharedSidebar";
 import PesoLogo from "@/assets/images/peso-logo.png";
 
 const JobseekerLayout = () => {
@@ -12,9 +12,10 @@ const JobseekerLayout = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Sidebar
+      <SharedSidebar
         visible={sidebarVisible}
         onClose={() => setSidebarVisible(false)}
+        role="jobseeker"
       />
 
       {/* Tabs */}
@@ -124,6 +125,8 @@ const JobseekerLayout = () => {
         <Tabs.Screen name="Career" options={{ href: null }} />
         <Tabs.Screen name="Companies" options={{ href: null }} />
         <Tabs.Screen name="Navigation" options={{ href: null }} />
+        <Tabs.Screen name="EditProfile" options={{ href: null }} />
+        <Tabs.Screen name="Application/[id]" options={{ href: null }} />
       </Tabs>
     </View>
   );

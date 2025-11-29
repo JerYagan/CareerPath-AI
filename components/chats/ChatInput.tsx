@@ -1,14 +1,15 @@
 import { View, TextInput, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Entypo, Ionicons } from "@expo/vector-icons";
 
 type Props = {
   input: string;
   setInput: (v: string) => void;
   onSend: () => void;
   onAttach?: () => void;
+  onOptions?: () => void;
 };
 
-export default function ChatInput({ input, setInput, onSend, onAttach }: Props) {
+export default function ChatInput({ input, setInput, onSend, onAttach, onOptions }: Props) {
   const handleSend = () => {
     if (!input.trim()) return;
     onSend();
@@ -19,11 +20,11 @@ export default function ChatInput({ input, setInput, onSend, onAttach }: Props) 
       {/* Attachment button */}
       <TouchableOpacity
         onPress={onAttach}
-        disabled={!onAttach}
-        className="px-2 rounded-full items-center justify-center mr-2"
+        className="px-3 py-2 rounded-full items-center justify-center mr-2 bg-gray-100"
       >
-        <Ionicons name="attach-outline" size={22} color="#4b5563" />
+        <Ionicons name="attach-outline" size={24} color="#1C388E" />
       </TouchableOpacity>
+
 
       {/* Text input */}
       <TextInput
