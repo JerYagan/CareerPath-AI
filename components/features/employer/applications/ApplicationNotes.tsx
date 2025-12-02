@@ -3,13 +3,13 @@ import { View, Text, TextInput, ScrollView } from "react-native";
 import DraggableSheet from "@/components/ui/DraggableSheet";
 import CustomButton from "@/components/ui/CustomButton";
 
-export default function NotesSheet({ visible, onClose, notes, onSave }: any) {
+export default function ApplicationNotes({ visible, onClose, notes, onSave }: any) {
   const [text, setText] = useState("");
 
   if (!visible) return null;
 
   return (
-    <DraggableSheet visible={visible} onClose={onClose} height="large">
+    <DraggableSheet visible={visible} onClose={onClose} height="half">
       <ScrollView className="px-5 pb-20">
 
         <Text className="text-xl font-semibold mt-4">Applicant Notes</Text>
@@ -32,7 +32,8 @@ export default function NotesSheet({ visible, onClose, notes, onSave }: any) {
         <CustomButton
           title="Save Note"
           icon="save-outline"
-          className="mt-4 bg-brandBlue rounded-xl py-3"
+          iconColor="white"
+          className="mt-4 bg-brandBlue rounded-xl py-3 gap-2"
           textClassName="text-white"
           onPress={() => {
             onSave(text);

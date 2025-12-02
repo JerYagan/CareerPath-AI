@@ -3,10 +3,10 @@ import { ScrollView, View, Text, RefreshControl } from "react-native";
 import Search from "@/components/features/jobseeker/home/HomeSearch";
 import JobPopular from "@/components/features/jobseeker/home/JobPopular";
 import jobs from "@/assets/data/jobs.json";
-import SkillsModal from "@/components/ui/SkillsModal";
+import SkillsModal from "@/components/ui/TagsModal";
 import HomeCard from "@/components/features/jobseeker/home/HomeCard";
 import JobApplySheet from "@/components/ui/JobApplySheet";
-import SkillsPreview from "@/components/ui/SkillsPreview";
+import SkillsPreview from "@/components/ui/TagsPreview";
 import { Job } from "@/types/job";
 
 export default function Home() {

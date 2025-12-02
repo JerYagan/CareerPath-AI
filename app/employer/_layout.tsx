@@ -90,7 +90,7 @@ const _layout = () => {
         <Tabs.Screen
           name="Jobs"
           options={{
-            title: "Jobs Posts",
+            title: "Jobs",
             tabBarLabel: "Jobs",
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="briefcase-outline" size={size} color={color} />
@@ -110,20 +110,19 @@ const _layout = () => {
         />
 
         <Tabs.Screen
-          name="Candidates"
+          name="Applications"
           options={{
-            title: "Find Candidates",
-            tabBarLabel: "Candidates",
+            title: "Applications",
+            tabBarLabel: "Applications",
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="search-outline" size={size} color={color} />
+              <Ionicons name="newspaper-outline" size={size} color={color} />
             ),
           }}
         />
 
         {/* HIDDEN ROUTES */}
-        <Tabs.Screen name="Applications" options={{ href: null }} />
+        <Tabs.Screen name="Candidates" options={{ href: null }} />
         <Tabs.Screen name="Profile" options={{ href: null }} />
-        <Tabs.Screen name="PostJob" options={{ href: null }} />
         <Tabs.Screen name="Candidates/[id]" options={{ href: null }} />
 
         <Tabs.Screen

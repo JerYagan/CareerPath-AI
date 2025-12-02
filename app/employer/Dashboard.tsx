@@ -78,7 +78,7 @@ const Dashboard = () => {
                   className="justify-end"
                 />
                 <Text className="text-gray-500 text-sm mt-2">
-                  {["M", "T", "W", "T", "F", "S", "S"][index]}
+                  {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"][index]}
                 </Text>
               </View>
             );
@@ -140,9 +140,6 @@ const Dashboard = () => {
         skills={["Node.js", "PostgreSQL", "Docker", "Redis"]}
         match={69}
       />
-
-      {/* Footer spacing */}
-      <View className="h-16" />
     </ScrollView>
   );
 };

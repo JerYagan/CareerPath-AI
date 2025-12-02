@@ -92,7 +92,7 @@ const CandidateItem = ({
       </View>
 
       {/* Match Score */}
-      <Text className="text-gray-700 font-semibold mb-2">Match Score</Text>
+      {/* <Text className="text-gray-700 font-semibold mb-2">Match Score</Text>
 
       <View className="h-2 w-full bg-gray-200 rounded-full overflow-hidden mb-4">
         <View
@@ -102,10 +102,10 @@ const CandidateItem = ({
             backgroundColor: brandBlue,
           }}
         />
-      </View>
+      </View> */}
 
       {/* Action Buttons */}
-      <View className="flex-row justify-between items-center gap-3 mt-2">
+      <View className="flex-row justify-between items-center gap-3">
         <CustomButton
           title="View Profile"
           className="flex-1 bg-[#1C388E] rounded-xl gap-2"

@@ -3,7 +3,7 @@ import { View, Text, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import DraggableSheet from "@/components/ui/DraggableSheet";
 import CustomButton from "@/components/ui/CustomButton";
-import SkillsPreview from "@/components/ui/SkillsPreview";
+import SkillsPreview from "@/components/ui/TagsPreview";
 import { Job } from "@/types/job";
 
 type Props = {

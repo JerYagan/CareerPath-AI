@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import CustomButton from "@/components/ui/CustomButton";
 import { Job } from "@/types/jobs";
+import TagsPreview from "@/components/ui/TagsPreview";
+import TagsModal from "@/components/ui/TagsModal";
 
 type JobCardProps = {
   job: Job;
@@ -10,7 +12,7 @@ type JobCardProps = {
   onEdit: () => void;
 };
 
-const JobCard = ({ job, onViewDetails, onEdit }: JobCardProps) => {
+const EmployerJobCard = ({ job, onViewDetails, onEdit }: JobCardProps) => {
   const STATUS_COLORS: Record<Job["status"], { bg: string; text: string }> = {
     Active: { bg: "#ECFDF5", text: "#047857" },
     Closed: { bg: "#FEF2F2", text: "#B91C1C" },
@@ -21,6 +23,7 @@ const JobCard = ({ job, onViewDetails, onEdit }: JobCardProps) => {
 
   const visibleTags = job.tags.slice(0, 3);
   const extraTags = job.tags.length - visibleTags.length;
+  const [tagsVisible, setTagsVisible] = useState(false);
 
   return (
     <View className="bg-white rounded-2xl p-5 mb-4 shadow-sm">
@@ -74,22 +77,17 @@ const JobCard = ({ job, onViewDetails, onEdit }: JobCardProps) => {
         </Text>
       </View>
 
-      <View className="flex-row flex-wrap mt-3 gap-2">
-        {visibleTags.map((tag) => (
-          <View
-            key={tag}
-            className="px-2 py-1 rounded-lg bg-gray-100 flex-row items-center"
-          >
-            <Ionicons name="pricetag-outline" size={14} color="#6b7280" />
-            <Text className="ml-1 text-gray-700 text-sm font-semibold">{tag}</Text>
-          </View>
-        ))}
-        {extraTags > 0 && (
-          <View className="px-2 py-1 rounded-lg bg-gray-100">
-            <Text className="text-gray-600 text-sm font-semibold">+{extraTags} more</Text>
-          </View>
-        )}
-      </View>
+      {/* TAGS USING GENERIC COMPONENT */}
+      <TagsPreview
+        skills={job.tags}
+        onPress={() => setTagsVisible(true)}
+      />
+
+      <TagsModal
+        visible={tagsVisible}
+        onClose={() => setTagsVisible(false)}
+        skills={job.tags}
+      />
 
       {/* ACTION BUTTONS */}
       <View className="flex-row gap-3 mt-5">
@@ -117,4 +115,4 @@ const JobCard = ({ job, onViewDetails, onEdit }: JobCardProps) => {
   );
 };
 
-export default JobCard;
+export default EmployerJobCard;

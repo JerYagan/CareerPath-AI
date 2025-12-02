@@ -3,29 +3,31 @@ import { View, Text, Pressable } from "react-native";
 
 type Props = {
   skills: string[];
+  showAll?: boolean;   // <--- NEW
   onPress?: () => void;
 };
 
-const SkillsPreview: React.FC<Props> = ({ skills, onPress }) => {
-  const preview = skills.slice(0, 3);
+const TagsPreview: React.FC<Props> = ({ skills, showAll = false, onPress }) => {
+  
+  const preview = showAll ? skills : skills.slice(0, 3);
   const extra = skills.length - preview.length;
 
   return (
-    <View className="mt-4 flex-row flex-wrap gap-2">
+    <View className="mt-3 flex-row flex-wrap gap-2">
       {preview.map((skill, i) => (
         <Pressable
           key={i}
           onPress={onPress}
-          className="py-1 px-2 bg-gray-200 text-gray-600 font-bold rounded-lg"
+          className="py-1.5 px-3 bg-gray-200 rounded-xl"
         >
-          <Text className="text-gray-600 font-semibold">{skill}</Text>
+          <Text className="text-gray-700 font-semibold text-sm">{skill}</Text>
         </Pressable>
       ))}
 
-      {extra > 0 && (
+      {!showAll && extra > 0 && (
         <Pressable
           onPress={onPress}
-          className="py-1 px-2 bg-gray-300 rounded-lg"
+          className="py-1.5 px-3 bg-gray-200 rounded-full"
         >
           <Text className="text-gray-800 font-semibold">+{extra}</Text>
         </Pressable>
@@ -34,4 +36,4 @@ const SkillsPreview: React.FC<Props> = ({ skills, onPress }) => {
   );
 };
 
-export default SkillsPreview;
+export default TagsPreview;

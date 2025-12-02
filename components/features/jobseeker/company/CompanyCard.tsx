@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { View, Text } from "react-native";
 import CustomButton from "@/components/ui/CustomButton";
 import { Ionicons } from "@expo/vector-icons";
-import SkillsPreview from "@/components/ui/SkillsPreview";
-import SkillsModal from "@/components/ui/SkillsModal";
+import SkillsPreview from "@/components/ui/TagsPreview";
+import SkillsModal from "@/components/ui/TagsModal";
 
 interface CompanyCardProps {
   item: Company;

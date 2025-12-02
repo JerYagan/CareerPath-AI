@@ -23,19 +23,15 @@ type SidebarProps = {
 
 const JOBSEEKER_NAV = [
   { label: "Home", icon: "home-outline", route: "/jobseeker/Home" },
-  { label: "Activity", icon: "time-outline", route: "/jobseeker/Activity" },
-  { label: "Chats", icon: "chatbubble-outline", route: "/jobseeker/Chats" },
   { label: "Companies", icon: "business-outline", route: "/jobseeker/Companies" },
   { label: "Career", icon: "school-outline", route: "/jobseeker/Career" },
-  { label: "Profile", icon: "person-outline", route: "/jobseeker/Profile" },
   { label: "Settings", icon: "settings-outline", route: "/Settings" },
 ];
 
 const EMPLOYER_NAV = [
   { label: "Dashboard", icon: "grid-outline", route: "/employer/Dashboard" },
-  { label: "Job Posts", icon: "briefcase-outline", route: "/employer/Jobs" },
-  { label: "Applications", icon: "layers-outline", route: "/employer/Applications" },
-  { label: "Chat", icon: "chatbubble-outline", route: "/employer/Chat" },
+  { label: "Chats", icon: "chatbubble-outline", route: "/employer/Chats" },
+  { label: "Jobs", icon: "briefcase-outline", route: "/employer/Jobs" },
   { label: "Profile", icon: "business-outline", route: "/employer/Profile" },
   { label: "Settings", icon: "settings-outline", route: "/Settings" },
 ];
@@ -160,6 +156,31 @@ export default function SharedSidebar({ visible, onClose, role }: SidebarProps) 
               </TouchableOpacity>
             );
           })}
+
+          {/* Divider */}
+          <View className="h-px bg-gray-200 my-5 w-full" />
+
+          {/* LOGOUT BUTTON */}
+          <TouchableOpacity
+            onPress={async () => {
+              try {
+                onClose();
+                router.replace("/auth/Login"); // or "/Login" depending on your flow
+              } catch (error) {
+                console.log("Logout error:", error);
+              }
+            }}
+            className="flex-row items-center px-6 py-4"
+          >
+            <Ionicons
+              name="log-out-outline"
+              size={24}
+              color="#dc2626"
+            />
+            <Text className="text-lg font-semibold text-red-600 ml-4">
+              Logout
+            </Text>
+          </TouchableOpacity>
         </ScrollView>
       </Animated.View>
     </>

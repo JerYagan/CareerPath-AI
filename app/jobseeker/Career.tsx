@@ -199,8 +199,9 @@ const Career = () => {
   return (
     <View className="flex-1 bg-gray-100">
       <ScrollView
+        className="px-4"
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ padding: 16, paddingBottom: 32 }}
+        contentContainerStyle={{ paddingTop: 20, paddingBottom: 24 }}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
       >
 

@@ -57,7 +57,6 @@ const Activity = () => {
   };
 
   const handleViewApplication = (job: Job) => {
-    // Adjust this route to your actual Application Details screen
     router.push(`./jobseeker/Applications/${job.id}`);
   };
 

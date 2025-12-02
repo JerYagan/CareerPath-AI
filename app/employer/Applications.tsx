@@ -4,8 +4,8 @@ import { Ionicons } from "@expo/vector-icons";
 
 import SearchBar from "@/components/ui/SearchBar";
 import ApplicationCard from "@/components/features/employer/applications/ApplicationCard";
-import ApplicantProfileSheet from "@/components/features/employer/applications/ApplicantProfileSheet";
-import FilterSheet from "@/components/features/employer/applications/FilterSheet";
+import ApplicantProfile from "@/components/features/employer/applications/ApplicantProfile";
+import FilterModal from "@/components/ui/FilterModal";
 
 export type ApplicationStatus =
   | "Under Review"
@@ -55,11 +55,6 @@ export type Application = {
   insights: Insights;
 };
 
-/* ---- seed data (same as before) ---- */
-// const APPLICATION_SEED: Application[] = [ ...same as what I gave you...]
-// -----------------------------------------
-// SEED DATA
-// -----------------------------------------
 const APPLICATION_SEED: Application[] = [
   {
     id: "APP-001",
@@ -218,18 +213,35 @@ const Applications = () => {
         )}
       </ScrollView>
 
-      <FilterSheet
+      <FilterModal<string>
         visible={filterVisible}
         onClose={() => setFilterVisible(false)}
-        selectedStatuses={statusFilters}
-        setSelectedStatuses={setStatusFilters}
-        selectedLevels={levelFilters}
-        setSelectedLevels={setLevelFilters}
+        title="Filter Applications"
+        sections={[
+          {
+            label: "Status",
+            items: [
+              "Under Review",
+              "Shortlisted",
+              "Interview",
+              "Not Qualified",
+              "Accepted",
+            ],
+            state: statusFilters.map(s => s as string),
+            setState: (v) => setStatusFilters(v as ApplicationStatus[]),
+          },
+          {
+            label: "Experience Level",
+            items: ["Entry-level", "Mid-level", "Senior"],
+            state: levelFilters,
+            setState: setLevelFilters,
+          },
+        ]}
         onReset={resetFilters}
         onApply={() => setFilterVisible(false)}
       />
 
-      <ApplicantProfileSheet
+      <ApplicantProfile
         visible={profileVisible}
         onClose={() => setProfileVisible(false)}
         applicant={selectedApplicant}

@@ -14,25 +14,11 @@ import CustomButton from "@/components/ui/CustomButton";
 const Login = () => {
   const router = useRouter();
 
-  const [email, setEmail] = useState("hr@techcorp.com");
+  const [email, setEmail] = useState("john@example.com");
   const [password, setPassword] = useState("123456");
   const [error, setError] = useState("");
 
   const position = useSharedValue(0);
-
-  const animatedHighlight = useAnimatedStyle(() => ({
-    transform: [{ translateX: withTiming(position.value * 160) }],
-  }));
-
-  const animatedJobSeekerText = useAnimatedStyle(() => ({
-    transform: [{ scale: withTiming(position.value === 0 ? 1.05 : 1) }],
-    opacity: withTiming(position.value === 0 ? 1 : 0.5),
-  }));
-
-  const animatedEmployerText = useAnimatedStyle(() => ({
-    transform: [{ scale: withTiming(position.value === 1 ? 1.05 : 1) }],
-    opacity: withTiming(position.value === 1 ? 1 : 0.5),
-  }));
 
   const handleLogin = () => {
     const trimmedEmail = email.trim();
@@ -68,7 +54,7 @@ const Login = () => {
       <View className="mx-4 p-8 flex justify-center bg-white border border-gray-300 rounded-lg overflow-hidden">
         <View className="items-center mb-10">
           <Image
-            source={require("@/assets/images/peso-logo.png")} // place your logo here
+            source={require("@/assets/images/peso-logo.png")}
             className="w-20 h-20 mb-3"
             resizeMode="contain"
           />

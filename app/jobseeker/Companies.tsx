@@ -136,9 +136,11 @@ const Companies = () => {
   );
 
   return (
-    <View className="mt-4 flex-1 bg-gray-100">
+    <View className="flex-1 bg-gray-100">
       <ScrollView
         className="flex-1 px-4"
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingTop: 20 }}
         refreshControl={
           <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
         }
