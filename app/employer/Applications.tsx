@@ -2,10 +2,10 @@ import React, { useMemo, useState } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import SearchBar from "@/components/ui/SearchBar";
-import ApplicationCard from "@/components/features/employer/applications/ApplicationCard";
-import ApplicantProfile from "@/components/features/employer/applications/ApplicantProfile";
-import FilterModal from "@/components/ui/FilterModal";
+import SearchBar from "@/src/components/ui/SearchBar";
+import ApplicationCard from "@/src/features/employer/applications/ApplicationCard";
+import ApplicantProfile from "@/src/features/employer/applications/ApplicantProfile";
+import FilterModal from "@/src/components/ui/FilterModal";
 
 export type ApplicationStatus =
   | "Under Review"

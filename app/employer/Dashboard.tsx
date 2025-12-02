@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import MetricCard from "@/components/features/employer/dashboard/MetricCard";
-import CandidateItem from "@/components/features/employer/dashboard/CandidateItem";
+import MetricCard from "@/src/features/employer/dashboard/MetricCard";
+import CandidateItem from "@/src/features/employer/dashboard/CandidateItem";
 
 const brandBlue = "#1C388E";
 

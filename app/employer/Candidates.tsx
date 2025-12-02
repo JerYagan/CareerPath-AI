@@ -2,10 +2,10 @@ import React, { useState, useMemo } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import SearchBar from "@/components/ui/SearchBar";
-import FilterSheet from "@/components/features/employer/candidates/FilterSheet";
-import CandidateCard from "@/components/features/employer/candidates/CandidateCard";
-import CandidateProfileSheet from "@/components/features/employer/candidates/CandidateProfileSheet";
+import SearchBar from "@/src/components/ui/SearchBar";
+import FilterSheet from "@/src/features/employer/candidates/FilterSheet";
+import CandidateCard from "@/src/features/employer/candidates/CandidateCard";
+import CandidateProfileSheet from "@/src/features/employer/candidates/CandidateProfileSheet";
 
 const brandBlue = "#1C388E";
 

@@ -13,17 +13,17 @@ import { router } from "expo-router";
 
 import profileData from "@/assets/data/profile.json";
 
-import ProfileHeader from "@/components/features/jobseeker/profile/ProfileHeader";
-import UploadPhotoModal from "@/components/features/jobseeker/profile/UploadPhotoModal";
+import ProfileHeader from "@/src/features/jobseeker/profile/ProfileHeader";
+import UploadPhotoModal from "@/src/features/jobseeker/profile/UploadPhotoModal";
 
-import Tabs from "@/components/ui/SegmentTabs";
-import Card from "@/components/features/jobseeker/profile/ProfileCard";
-import ExperienceTimeline from "@/components/features/jobseeker/profile/ExperienceTimeline";
-import CustomButton from "@/components/ui/CustomButton";
+import Tabs from "@/src/components/ui/SegmentTabs";
+import Card from "@/src/features/jobseeker/profile/ProfileCard";
+import ExperienceTimeline from "@/src/features/jobseeker/profile/ExperienceTimeline";
+import CustomButton from "@/src/components/ui/CustomButton";
 
-import { useProfileState } from "@/hooks/useProfileState";
-import { useProfileModal } from "@/hooks/useProfileModal";
-import ProfileHeaderParallax from "@/components/features/jobseeker/profile/ProfileHeaderParallax";
+import { useProfileState } from "@/src/hooks/useProfileState";
+import { useProfileModal } from "@/src/hooks/useProfileModal";
+import ProfileHeaderParallax from "@/src/features/jobseeker/profile/ProfileHeaderParallax";
 
 const options = ["overview", "experience", "skills", "roadmap"] as const;
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, ScrollView, TextInput, Switch } from "react-native";
-import CustomButton from "@/components/ui/CustomButton";
+import CustomButton from "@/src/components/ui/CustomButton";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";

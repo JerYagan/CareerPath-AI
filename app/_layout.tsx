@@ -2,9 +2,9 @@ import { Stack } from "expo-router";
 import "../global.css"
 import { ThemeProvider } from "@/context/ThemeContext";
 import { useState, useEffect } from "react";
-import SplashWrapper from "@/components/splash/SplashWrapper";
-import SwipeableSidebarWrapper from "@/components/navigation/SwipeableSidebarWrapper";
-import Sidebar from "@/components/navigation/SharedSidebar";
+import SplashWrapper from "@/src/components/splash/SplashWrapper";
+import SwipeableSidebarWrapper from "@/src/components/navigation/SwipeableSidebarWrapper";
+import Sidebar from "@/src/components/navigation/SharedSidebar";
 import * as Notifications from "expo-notifications";
 
 

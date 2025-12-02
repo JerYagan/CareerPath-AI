@@ -8,16 +8,16 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import SegmentTabs from "@/components/ui/SegmentTabs";
-import EmployerJobCard from "@/components/features/employer/jobs/EmployerJobCard";
-import JobPost from "@/components/features/employer/jobs/JobPost";
-import JobEdit from "@/components/features/employer/jobs/JobEdit";
-import JobDetails from "@/components/features/employer/jobs/JobDetails";
-import CustomButton from "@/components/ui/CustomButton";
-import SearchBar from "@/components/ui/SearchBar";
-import UniversalFilterModal from "@/components/ui/FilterModal";
+import SegmentTabs from "@/src/components/ui/SegmentTabs";
+import EmployerJobCard from "@/src/features/employer/jobs/EmployerJobCard";
+import JobPost from "@/src/features/employer/jobs/JobPost";
+import JobEdit from "@/src/features/employer/jobs/JobEdit";
+import JobDetails from "@/src/features/employer/jobs/JobDetails";
+import CustomButton from "@/src/components/ui/CustomButton";
+import SearchBar from "@/src/components/ui/SearchBar";
+import UniversalFilterModal from "@/src/components/ui/FilterModal";
 
-import { Job, JobStatus } from "@/types/jobs";
+import { Job, JobStatus } from "@/src/types/jobs";
 import { router } from "expo-router";
 
 const brandBlue = "#1C388E";

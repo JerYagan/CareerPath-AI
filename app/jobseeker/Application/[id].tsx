@@ -2,11 +2,11 @@ import React, { useMemo } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import CustomButton from "@/components/ui/CustomButton";
+import CustomButton from "@/src/components/ui/CustomButton";
 
 // TEMP: Pull from your jobs.json
 import jobs from "@/assets/data/jobs.json";
-import type { Job } from "@/types/job";
+import type { Job } from "@/src/types/job";
 
 export default function ApplicationDetails() {
   const { id } = useLocalSearchParams();

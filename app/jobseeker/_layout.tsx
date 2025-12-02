@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import { Tabs, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import SharedSidebar from "@/components/navigation/SharedSidebar";
+import SharedSidebar from "@/src/components/navigation/SharedSidebar";
 import PesoLogo from "@/assets/images/peso-logo.png";
 
 const JobseekerLayout = () => {

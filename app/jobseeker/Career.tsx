@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { View, ScrollView, RefreshControl, TouchableOpacity, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import ShareBox from "@/components/features/jobseeker/career/ShareBox";
-import PostCard from "@/components/features/jobseeker/career/PostCard";
-import CreatePostModal from "@/components/features/jobseeker/career/CreatePostModal";
-import CommentsSheet from "@/components/features/jobseeker/career/CommentsSheet";
-import ShareSheet from "@/components/features/jobseeker/career/ShareSheet";
-import OptionsSheet from "@/components/features/jobseeker/career/OptionsSheet";
+import ShareBox from "@/src/features/jobseeker/career/ShareBox";
+import PostCard from "@/src/features/jobseeker/career/PostCard";
+import CreatePostModal from "@/src/features/jobseeker/career/CreatePostModal";
+import CommentsSheet from "@/src/features/jobseeker/career/CommentsSheet";
+import ShareSheet from "@/src/features/jobseeker/career/ShareSheet";
+import OptionsSheet from "@/src/features/jobseeker/career/OptionsSheet";
 
 // ---- Types ----
 type Post = {

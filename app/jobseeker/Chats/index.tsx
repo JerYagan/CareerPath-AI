@@ -1,4 +1,4 @@
-import ChatList from "@/components/chats/ChatList";
+import ChatList from "@/src/components/chats/ChatList";
 import jobseekerChats from "@/assets/data/chats.json";
 
 export default function JobseekerChat() {

@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import CustomButton from "@/components/ui/CustomButton";
+import CustomButton from "@/src/components/ui/CustomButton";
 import * as Notifications from "expo-notifications";
 import { SafeAreaView } from "react-native-safe-area-context";
 

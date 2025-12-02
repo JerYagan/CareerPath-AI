@@ -3,14 +3,14 @@ import { View, ScrollView, RefreshControl } from "react-native";
 import { useRouter } from "expo-router";
 
 import jobs from "@/assets/data/jobs.json";
-import Tabs from "@/components/ui/SegmentTabs";
-import SavedSection from "@/components/features/jobseeker/activity/SavedSection";
-import AppliedSection from "@/components/features/jobseeker/activity/AppliedSection";
-import InterviewSection from "@/components/features/jobseeker/activity/InterviewSection";
-import ArchivedSection from "@/components/features/jobseeker/activity/ArchivedSection";
-import JobApplySheet from "@/components/ui/JobApplySheet";
-import type { Job } from "@/types/job";
-import EmptyState from "@/components/ui/EmptyState";
+import Tabs from "@/src/components/ui/SegmentTabs";
+import SavedSection from "@/src/features/jobseeker/activity/SavedSection";
+import AppliedSection from "@/src/features/jobseeker/activity/AppliedSection";
+import InterviewSection from "@/src/features/jobseeker/activity/InterviewSection";
+import ArchivedSection from "@/src/features/jobseeker/activity/ArchivedSection";
+import JobApplySheet from "@/src/components/ui/JobApplySheet";
+import type { Job } from "@/src/types/job";
+import EmptyState from "@/src/components/ui/EmptyState";
 
 const options = ["saved", "applied", "interviews", "archived"] as const;
 const labels = {

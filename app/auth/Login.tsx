@@ -9,7 +9,7 @@ import Animated, {
 } from "react-native-reanimated";
 import users from "../../assets/data/users.json";
 import employerAccounts from "../../assets/data/employerData/employerAccounts.json";
-import CustomButton from "@/components/ui/CustomButton";
+import CustomButton from "@/src/components/ui/CustomButton";
 
 const Login = () => {
   const router = useRouter();

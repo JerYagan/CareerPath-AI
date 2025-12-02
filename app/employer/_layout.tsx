@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Image, Text, View, TouchableOpacity } from "react-native";
 import { Tabs, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import EmployerSidebar from "@/components/features/employer/EmployerSidebar";
-import SharedSidebar from "@/components/navigation/SharedSidebar";
+import EmployerSidebar from "@/src/features/employer/EmployerSidebar";
+import SharedSidebar from "@/src/components/navigation/SharedSidebar";
 import PesoLogo from "@/assets/images/peso-logo.png";
 
 const _layout = () => {

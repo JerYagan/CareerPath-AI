@@ -5,19 +5,19 @@ import { useLocalSearchParams } from "expo-router";
 import { RegisterProvider } from "@/context/RegisterContext";
 
 // JOB SEEKER STEPS
-import JS_Step1Personal from "@/components/features/jobseeker/register/JS_Step1Personal";
-import JS_Step2Experience from "@/components/features/jobseeker/register/JS_Step2Experience";
-import JS_Step3Education from "@/components/features/jobseeker/register/JS_Step3Education";
-import JS_Step4Skills from "@/components/features/jobseeker/register/JS_Step4Skills";
-import JS_Step5Resume from "@/components/features/jobseeker/register/JS_Step5Resume";
-import JS_Step6CareerGoals from "@/components/features/jobseeker/register/JS_Step6Goals";
-import JS_Step7OTP from "@/components/features/jobseeker/register/JS_Step7OTP";
+import JS_Step1Personal from "@/src/features/jobseeker/register/JS_Step1Personal";
+import JS_Step2Experience from "@/src/features/jobseeker/register/JS_Step2Experience";
+import JS_Step3Education from "@/src/features/jobseeker/register/JS_Step3Education";
+import JS_Step4Skills from "@/src/features/jobseeker/register/JS_Step4Skills";
+import JS_Step5Resume from "@/src/features/jobseeker/register/JS_Step5Resume";
+import JS_Step6CareerGoals from "@/src/features/jobseeker/register/JS_Step6Goals";
+import JS_Step7OTP from "@/src/features/jobseeker/register/JS_Step7OTP";
 
 // EMPLOYER STEPS
-import EmployerStep1Personal from "@/components/features/employer/register/EmployerStep1Personal";
-import EmployerStep2Company from "@/components/features/employer/register/EmployerStep2Company";
-import EmployerStep3Verification from "@/components/features/employer/register/EmployerStep3Verification";
-import EmployerStep4OTP from "@/components/features/employer/register/EmployerStep4OTP";
+import EmployerStep1Personal from "@/src/features/employer/register/EmployerStep1Personal";
+import EmployerStep2Company from "@/src/features/employer/register/EmployerStep2Company";
+import EmployerStep3Verification from "@/src/features/employer/register/EmployerStep3Verification";
+import EmployerStep4OTP from "@/src/features/employer/register/EmployerStep4OTP";
 
 export default function Register() {
   const { role } = useLocalSearchParams();

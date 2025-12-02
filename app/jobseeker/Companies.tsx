@@ -12,11 +12,11 @@ import {
   Keyboard,
 } from "react-native";
 
-import StatsRow from "@/components/features/jobseeker/company/StatsRow";
-import CompanyCard from "@/components/features/jobseeker/company/CompanyCard";
+import StatsRow from "@/src/features/jobseeker/company/StatsRow";
+import CompanyCard from "@/src/features/jobseeker/company/CompanyCard";
 import companiesJSON from "@/assets/data/companies.json";
-import AppSearchBar from "@/components/ui/AppSearchBar";
-import FilterSheet from "@/components/features/jobseeker/company/FilterSheet";
+import AppSearchBar from "@/src/components/ui/AppSearchBar";
+import FilterSheet from "@/src/features/jobseeker/company/FilterSheet";
 
 const PAGE_SIZE = 3;
 const industries = ["All", "Technology", "IT Services", "Design"];
